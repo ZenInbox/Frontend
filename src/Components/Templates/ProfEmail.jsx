@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ComposeEmail = () => {
+const ProfEmail = () => {
   const [sender, setSender] = useState('');
   const [subject, setSubject] = useState('');
   const [salutation, setSalutation] = useState('Dear');
@@ -34,8 +34,8 @@ const ComposeEmail = () => {
   };
 
   return (
-    <div className="w-[90%] mx-auto p-6 mt-12 mb-12 bg-blue-100 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold text-blue-800 mb-6 text-center">Compose Email</h2>
+    <div className="w-[80%] mx-auto p-6 mt-[120px] mb-12 bg-blue-100 rounded-lg shadow-lg">
+      <h2 className="text-2xl font-bold text-blue-800 mb-6 text-center">Proffesional Email</h2>
       
       <div className="mb-4">
         <label className="block text-blue-700 font-semibold mb-2">Sender's Email</label>
@@ -159,4 +159,4 @@ const ComposeEmail = () => {
   );
 };
 
-export default ComposeEmail;
+export default ProfEmail;

@@ -25,7 +25,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
 
         <div className="bg-white text-blue-900 h-[calc(100%-20%)] rounded p-4">
           <Link
-            to="/dashboard/compose"
+            to="/dashboard/template"
             className="p-4 bg-blue-50 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 border-t border-gray-200 transition hover:bg-blue-500 focus:bg-blue-500 text-blue-900"
           >
             Compose Email
