@@ -23,8 +23,9 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/features" element={<Features />} />
           <Route path="/dashboard" element={<Dashboard />} >
+            <Route index element={<Template />} /> 
             <Route path="/dashboard/template" element={<Template />} />
-          /</Route>
+          </Route>
           <Route path="/dashboard/template/compose" element={<ComposeEmail />} />
           <Route path="/dashboard/template/prof" element={<ProfEmail />} />
           <Route path="/dashboard/template/mark" element={<MarkEmail />} />
