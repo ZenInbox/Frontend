@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ComposeEmail = () => {
+const CustomEmail = () => {
   const [sender, setSender] = useState('');
   const [subject, setSubject] = useState('');
   const [salutation, setSalutation] = useState('Dear');
@@ -159,4 +159,4 @@ const ComposeEmail = () => {
   );
 };
 
-export default ComposeEmail;
+export default CustomEmail;

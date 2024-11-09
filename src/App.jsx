@@ -6,7 +6,7 @@ import Dashboard from './Components/Dashboard';
 import Navbar from "./Components/Navbar";
 import Contact from './Components/Contact';
 import Features from './Components/Features';
-import ComposeEmail from './Components/Templates/ComposeEmail';
+import CustomEmail from './Components/Templates/CustomEmail';
 import ProfEmail from './Components/Templates/ProfEmail';
 import MarkEmail from './Components/Templates/MarkEmail';
 import FollowUpEmail from './Components/Templates/FollowUpEmail';
@@ -26,7 +26,7 @@ function App() {
             <Route index element={<Template />} /> 
             <Route path="/dashboard/template" element={<Template />} />
           </Route>
-          <Route path="/dashboard/template/compose" element={<ComposeEmail />} />
+          <Route path="/dashboard/template/custom" element={<CustomEmail />} />
           <Route path="/dashboard/template/prof" element={<ProfEmail />} />
           <Route path="/dashboard/template/mark" element={<MarkEmail />} />
           <Route path="/dashboard/template/followup" element={<FollowUpEmail />} />

@@ -8,7 +8,7 @@ export default function Home() {
           <h1 className="text-slate-500  h-[100px] text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-center">
             Welcome to{" "}
             <span className="bg-gradient-to-r from-blue-500 via-blue-500 to-blue-700 bg-clip-text text-transparent text-4xl md:text-5xl lg:text-6xl">
-              EmailMania
+              ZenInbox
             </span>
           </h1>
           <p className="text-center md:text-lg lg:text-xl text-gray-500 font-bold px-4 md:px-8 lg:px-12">
