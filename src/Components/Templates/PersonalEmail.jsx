@@ -188,7 +188,7 @@ const PersonalEmail = () => {
             type="text"
             placeholder="(e.g., Dad, Mom etc.)"
             value={recieverName}
-            onChange={(e) => setrecieverName(e.target.value)}
+            onChange={(e) => setRecieverName(e.target.value)}
             className="w-full px-3 py-2 border border-primary rounded-md focus:outline-none focus:border-2 focus:border-primary"
           />
         </div>
@@ -239,7 +239,7 @@ const PersonalEmail = () => {
         <label className="block text-hoverButtonColor font-semibold mb-2">Attach a Snap</label>
         <button
           onClick={() => setIsWebcamOpen(true)}
-          className="w-full px-3 py-6 border-2 border-primary  border-dotted rounded-md bg-white text-primary font-semibold focus:outline-none focus:ring focus:ring-blue-200"
+          className="w-full px-3 py-6 border-2 border-primary border-dotted rounded-md bg-white text-primary font-semibold focus:outline-none focus:ring focus:ring-blue-200"
         >
           Open Webcam to Record Video
         </button>
