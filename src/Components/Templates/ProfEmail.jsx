@@ -197,7 +197,7 @@ const ProfEmail = () => {
               </button>
             </div>
           ) : (
-            <p className="mt-2 ">Drag & Drop a file or click to browse</p>
+            <p className="mt-2 ">Drag & Drop a file or click to browse.</p>
           )}
         </div>
       </div>
