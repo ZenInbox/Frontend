@@ -24,7 +24,7 @@ export default function Template() {
 
 
       {/* Template 2 */}
-      <Link to="/dashboard/template/prof" className="col-span-1 lg:col-span-1">
+      <Link to="/dashboard/template/personal" className="col-span-1 lg:col-span-1">
         <div className="bg-white shadow-lg rounded-xl overflow-hidden hover:bg-hoverColor transition duration-300 h-[350px] w-[80%] mx-auto">
           <img
             src="https://via.placeholder.com/300x150"

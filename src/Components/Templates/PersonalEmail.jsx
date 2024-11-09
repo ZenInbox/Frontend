@@ -1,18 +1,24 @@
-import React, { useState } from 'react';
-import { useDropzone } from 'react-dropzone';
+import React, { useState, useRef } from 'react';
+import Webcam from 'react-webcam';
 import { FaTrashAlt } from 'react-icons/fa';
 
-const ProfEmail = () => {
+const PersonalEmail = () => {
   const [sender, setSender] = useState('');
   const [subject, setSubject] = useState('');
-  const [salutation, setSalutation] = useState('Dear');
-  const [closing, setClosing] = useState('Best regards,');
+  const [salutation, setSalutation] = useState('Hi');
+  const [closing, setClosing] = useState('Warm regards,');
   const [signature, setSignature] = useState('');
-  const [designation,setDesignation] = useState('');
+  const [recieverName, setRecieverName] = useState('');
   const [body, setBody] = useState('');
   const [recipients, setRecipients] = useState([]);
   const [newRecipient, setNewRecipient] = useState('');
-  const [attachment, setAttachment] = useState(null);
+  const [recordedVideo, setRecordedVideo] = useState(null);
+  const [isWebcamOpen, setIsWebcamOpen] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
+
+  const webcamRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
+  const recordedChunks = useRef([]);
 
   const handleAddRecipient = () => {
     if (newRecipient.trim()) {
@@ -21,41 +27,78 @@ const ProfEmail = () => {
     }
   };
 
-  const handleAttachmentChange = (acceptedFiles) => {
-    if (acceptedFiles.length > 0) {
-      setAttachment(acceptedFiles[0]);
-    }
-  };
-
   const handleRemoveRecipient = (index) => {
     const updatedRecipients = recipients.filter((_, i) => i !== index);
     setRecipients(updatedRecipients);
   };
 
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop: handleAttachmentChange,
-    accept: '.jpg,.jpeg,.png,.pdf,.doc,.docx,.ppt,.pptx',
-  });
+  const handleRemoveRecordedVideo = () => {
+    setRecordedVideo(null);
+  };
+
+
+  const startRecording = () => {
+    setIsRecording(true);
+    recordedChunks.current = [];
+
+    const stream = webcamRef.current.video.srcObject;
+    mediaRecorderRef.current = new MediaRecorder(stream, {
+      mimeType: 'video/webm',
+    });
+
+    mediaRecorderRef.current.ondataavailable = (event) => {
+      if (event.data.size > 0) {
+        recordedChunks.current.push(event.data);
+      }
+    };
+
+    mediaRecorderRef.current.onstop = () => {
+      const videoBlob = new Blob(recordedChunks.current, {
+        type: 'video/webm',
+      });
+      const videoUrl = URL.createObjectURL(videoBlob);
+      setRecordedVideo(videoUrl);
+      setIsRecording(false);
+    };
+
+    mediaRecorderRef.current.start();
+
+    setTimeout(() => {
+      mediaRecorderRef.current.stop();
+    }, 10000);
+  };
 
   const generatePreview = () => {
-    const formattedBody = `${salutation},\n\n${body}\n\n${closing}\n${signature ? signature : ''}\n${designation}`;
+    const formattedBody = `${salutation} ${recieverName},\n\n${body}\n\n${closing}\n${signature ? signature : ''}`;
     return (
       <div className="p-4 my-4 bg-hoverColor border border-primary rounded-md shadow">
         <h3 className="font-semibold ">To: {recipients.join(', ')}</h3>
         <h4 className="font-semibold ">Subject: {subject}</h4>
         <p className="mt-2 whitespace-pre-wrap">{formattedBody}</p>
+        {recordedVideo && (
+          <div className="mt-4">
+            <p className="font-semibold">Recorded Video:</p>
+            <video src={recordedVideo} controls className="mt-2 rounded-md" />
+            <button
+              onClick={handleRemoveRecordedVideo}
+              className="mt-2 px-3 py-1 bg-red-500 text-white font-semibold rounded-md flex items-center gap-2"
+            >
+              <FaTrashAlt /> Delete Video
+            </button>
+          </div>
+        )}
       </div>
     );
   };
 
   return (
     <div className="w-[80%] mx-auto p-6 mt-[120px] mb-12 rounded-lg">
-      <h2 className="text-3xl font-bold mb-12 text-center">Professional Email</h2>
+      <h2 className="text-3xl font-bold mb-12 text-center">Personal Email</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
         {/* Sender Email */}
         <div>
-          <label className="block text-hoverButtonColor font-semibold mb-2">Sender's Email</label>
+          <label className="block text-hoverButtonColor font-semibold mb-2">Your Email</label>
           <input
             type="email"
             placeholder="Sender's Email"
@@ -67,7 +110,7 @@ const ProfEmail = () => {
 
         {/* Salutation */}
         <div>
-          <label className="block text-hoverButtonColor font-semibold mb-2">Salutation</label>
+          <label className="block text-hoverButtonColor font-semibold mb-2">Greeting</label>
           <input
             type="text"
             placeholder="Salutation (e.g., Dear)"
@@ -136,16 +179,16 @@ const ProfEmail = () => {
           />
         </div>
 
-        {/* Designation Field */}
+        {/* recieverName Field */}
         <div className="flex-1">
         <label className="block text-hoverButtonColor font-semibold mb-2">
-          Designation <span className="text-gray-400">(optional)</span>
+          Reciever Relation <span className="text-gray-400">(optional)</span>
         </label>
           <input
             type="text"
-            placeholder="Designation (e.g., Your Job Title)"
-            value={designation}
-            onChange={(e) => setDesignation(e.target.value)}
+            placeholder="(e.g., Dad, Mom etc.)"
+            value={recieverName}
+            onChange={(e) => setrecieverName(e.target.value)}
             className="w-full px-3 py-2 border border-primary rounded-md focus:outline-none focus:border-2 focus:border-primary"
           />
         </div>
@@ -179,7 +222,6 @@ const ProfEmail = () => {
         />
         <button
           onClick={() => {
-            // Regex to check valid email format
             const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (emailRegex.test(newRecipient)) {
               handleAddRecipient();
@@ -193,29 +235,42 @@ const ProfEmail = () => {
         </button>
       </div>
 
-      {/* Attach File Section */}
-      <div className="mb-4 mt-6">
-        <label className="block text-hoverButtonColor font-semibold mb-2">Attach File</label>
-        <div
-          {...getRootProps()}
-          className="w-full px-3 py-6 border-2 border-primary border-dashed rounded-md focus:outline-none focus:ring focus:ring-blue-200 cursor-pointer"
+       <div className="mt-6">
+        <label className="block text-hoverButtonColor font-semibold mb-2">Attach a Snap</label>
+        <button
+          onClick={() => setIsWebcamOpen(true)}
+          className="w-full px-3 py-6 border-2 border-primary  border-dotted rounded-md bg-white text-primary font-semibold focus:outline-none focus:ring focus:ring-blue-200"
         >
-          <input {...getInputProps()} />
-          {attachment ? (
-            <div className="flex items-center justify-between">
-              <p className="mt-2 text-blue-600 font-medium">Attached: {attachment.name}</p>
-              <button
-                onClick={() => setAttachment(null)}  
-                className="ml-4 text-gray-400"
-              >
-                <FaTrashAlt size={14} /> 
-              </button>
-            </div>
-          ) : (
-            <p className="mt-2 ">Drag & Drop a file or click to browse.</p>
-          )}
-        </div>
+          Open Webcam to Record Video
+        </button>
+
+        {isWebcamOpen && (
+          <div className="mt-4">
+            <Webcam
+              audio={true}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              className="rounded-md border-2 border-primary"
+            />
+            <button
+              onClick={startRecording}
+              disabled={isRecording}
+              className={`mt-4 px-4 py-2 ${
+                isRecording ? 'bg-gray-400' : 'bg-primary'
+              } text-white font-semibold rounded-md shadow hover:bg-hoverButtonColor focus:outline-none`}
+            >
+              {isRecording ? 'Recording...' : 'Start 10-Second Recording'}
+            </button>
+            <button
+              onClick={() => setIsWebcamOpen(false)}
+              className="ml-2 mt-4 px-4 py-2 bg-red-600 text-white font-semibold rounded-md shadow hover:bg-red-700 focus:outline-none"
+            >
+              Close Webcam
+            </button>
+          </div>
+        )}
       </div>
+
 
       <div className="mt-8">
         <h3 className="text-xl font-semibold text-hoverButtonColor">Email Preview:</h3>
@@ -233,4 +288,4 @@ const ProfEmail = () => {
   );
 };
 
-export default ProfEmail;
+export default PersonalEmail;
