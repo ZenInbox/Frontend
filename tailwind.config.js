@@ -9,7 +9,7 @@ export default {
       colors: {
         //giving temporary colors for now, will be changed later
         primary: '#e65100', //orange
-        secondary: '#f8faf9', //gray
+        secondary: '#eff1f0', //gray
         hoverColor: '#fff2df', //light orange
         hoverButtonColor: '#bf360c' //deep prange
       },
