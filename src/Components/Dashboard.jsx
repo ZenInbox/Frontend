@@ -40,7 +40,7 @@ export default function Dashboard() {
 
       {/* Main content */}
       <div
-        className={`flex-1 mt-[60px] p-4 transition-all duration-300 ${
+        className={`flex-1 mt-[60px] p-4 transition-all duration-300  ${
           isSidebarOpen || isLargeScreen ? 'lg:ml-[15%]' : 'ml-0'
         }`}
       >

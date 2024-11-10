@@ -93,7 +93,7 @@ const PersonalEmail = () => {
 
   return (
     <div className="w-[80%] mx-auto p-6 mt-[120px] mb-12 rounded-lg">
-      <h2 className="text-3xl font-bold mb-12 text-center">Personal Email</h2>
+      <h2 className="text-4xl font-bold mb-12 text-center">Personal Email</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
         {/* Sender Email */}
