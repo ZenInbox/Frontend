@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const baseURL = import.meta.env.VITE_APP_MODE === "production" ? "" : "http://localhost:5000";
+  const baseURL = import.meta.env.VITE_APP_MODE === "development" ? "https://backend-ejt0.onrender.com" : "http://localhost:5000";
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
