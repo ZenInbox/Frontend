@@ -73,35 +73,39 @@ const PersonalEmail = () => {
 
 
   const startRecording = () => {
-    setIsRecording(true);
-    recordedChunks.current = [];
-
-    const stream = webcamRef.current.video.srcObject;
-    mediaRecorderRef.current = new MediaRecorder(stream, {
-      mimeType: 'video/webm',
-    });
-
-    mediaRecorderRef.current.ondataavailable = (event) => {
-      if (event.data.size > 0) {
-        recordedChunks.current.push(event.data);
-      }
-    };
-
-    mediaRecorderRef.current.onstop = () => {
-      const videoBlob = new Blob(recordedChunks.current, {
-        type: 'video/webm',
+    if (webcamRef.current && webcamRef.current.video) {
+      setIsRecording(true);
+      recordedChunks.current = [];
+  
+      const stream = webcamRef.current.video.srcObject;
+      mediaRecorderRef.current = new MediaRecorder(stream, {
+        mimeType: 'video/webm',
       });
-      const videoUrl = URL.createObjectURL(videoBlob);
-      setRecordedVideo(videoUrl);
-      setIsRecording(false);
-    };
-
-    mediaRecorderRef.current.start();
-
-    setTimeout(() => {
-      mediaRecorderRef.current.stop();
-    }, 10000);
-  };
+  
+      mediaRecorderRef.current.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          recordedChunks.current.push(event.data);
+        }
+      };
+  
+      mediaRecorderRef.current.onstop = () => {
+        const videoBlob = new Blob(recordedChunks.current, {
+          type: 'video/webm',
+        });
+        const videoUrl = URL.createObjectURL(videoBlob);
+        setRecordedVideo(videoUrl);
+        setIsRecording(false);
+      };
+  
+      mediaRecorderRef.current.start();
+  
+      setTimeout(() => {
+        mediaRecorderRef.current.stop();
+      }, 10000);
+    } else {
+      console.log("Webcam not initialized yet.");
+    }
+  };  
 
   const generatePreview = () => {
     const formattedBody = `${salutation} ${recieverName},\n\n${body}\n\n${closing}\n${signature ? signature : ''}`;
