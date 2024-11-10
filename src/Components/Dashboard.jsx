@@ -30,7 +30,7 @@ export default function Dashboard() {
   }, [currentUser, initialRedirect, navigate]);
 
   return (
-    <div className="flex bg-gradient-to-t from-gray-50 to-violet-100">
+    <div className="flex bg-gradient-to-b from-white to-hoverColor">
       {/* Sidebar */}
       <Sidebar
         isSidebarOpen={isSidebarOpen}
@@ -41,7 +41,7 @@ export default function Dashboard() {
       {/* Main content */}
       <div
         className={`flex-1 mt-[60px] p-4 transition-all duration-300 ${
-          isSidebarOpen || isLargeScreen ? 'lg:ml-[25%]' : 'ml-0'
+          isSidebarOpen || isLargeScreen ? 'lg:ml-[15%]' : 'ml-0'
         }`}
       >
         <Outlet />
