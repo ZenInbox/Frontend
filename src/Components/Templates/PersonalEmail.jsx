@@ -212,8 +212,6 @@ const PersonalEmail = () => {
       rows="4"
     />
   </div>
-
-  
 </div>
 
       <div className="mb-4 flex space-x-4">
