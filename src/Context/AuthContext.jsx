@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { auth } from '../firebase';
@@ -36,11 +35,24 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const provider = new GoogleAuthProvider();
+  provider.addScope('https://www.googleapis.com/auth/gmail.send');
+  provider.addScope('openid');
+  provider.addScope('https://www.googleapis.com/auth/userinfo.email');
+  provider.addScope('https://www.googleapis.com/auth/userinfo.profile');
+
   const loginWithGoogle = async () => {
     try {
-      const provider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
+      const credential = GoogleAuthProvider.credentialFromResult(userCredential);
+      const accessToken = credential.accessToken;
+
+      const idToken = await user.getIdToken(true); 
+
+      localStorage.setItem('gmailAccessToken', accessToken);
+      localStorage.setItem('gmailIdToken', idToken); 
+
       const response = await axios.post(`${baseURL}/api/user/fetchuser`, { uid: user.uid });
       if (!response.data.exists) {
         await axios.post(`${baseURL}/api/user/signup`, {
@@ -49,9 +61,13 @@ export const AuthProvider = ({ children }) => {
           uid: user.uid,
         });
       }
+
       await fetchUser(user.uid);
+      
+      console.log('User signed in and access token retrieved:', accessToken);
+      console.log('User signed in and ID token retrieved:', idToken);
     } catch (error) {
-      console.log(error)
+      console.error("Login failed:", error);
     }
   };
 
@@ -61,10 +77,9 @@ export const AuthProvider = ({ children }) => {
       setCurrentUser(null);
       setIsLoggedIn(false);
     } catch (error) {
-      console.log(error)
+      console.error("Logout failed:", error);
     }
   };
-
 
   const authContextValue = {
     currentUser,
@@ -75,10 +90,14 @@ export const AuthProvider = ({ children }) => {
     logout,
   };
 
-
   return (
     <AuthContext.Provider value={authContextValue}>
       {children}
     </AuthContext.Provider>
   );
 };
+
+
+
+
+
