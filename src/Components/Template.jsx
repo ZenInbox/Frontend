@@ -9,7 +9,7 @@ export default function Template() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col gap-12 items-center justify-center">
       <div className="h-auto lg:h-screen bg-cover mt-12 mb-6 lg:mb-12 bg-center grid grid-cols-1 lg:grid-cols-2 gap-6 items-center justify-center text-center p-4 bg-hoverColor rounded-md w-full lg:w-[100%]">
         
         {/* Template 1 */}
@@ -102,7 +102,7 @@ export default function Template() {
       </div>
 
       {/* Custom Button */}
-      <div className="w-full lg:w-[88%] flex justify-center mt-8 mb-4 lg:mt-0">
+      <div className="w-full lg:w-[88%] flex justify-center mt-8 lg:mt-0">
         <button
           className="w-[90%] lg:w-full py-4 bg-orange-600 text-white font-semibold rounded-xl shadow hover:bg-orange-700 focus:outline-none"
           onClick={goCustom}
