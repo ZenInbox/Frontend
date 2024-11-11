@@ -12,9 +12,9 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
 <div
   className={`lg:w-[15%] lg:h-screen lg:fixed lg:top-[14%] lg:left-0 lg:z-10 lg:flex lg:flex-col lg:gap-4 lg: 
     ${isSidebarOpen ? 'fixed top-[14%] left-0 w-90 h-[calc(100vh)] lg:hidden z-20' : 'hidden lg:flex'} 
-    bg-transparent text-blue-900`}
+    bg-gradient-to-b from-white to-hoverColor text-orange-500`}
 >
-        <div className="bg-transparent text-blue-900 h-[calc(100%-20%)] rounded p-4">
+        <div className="bg-transparent text-orange-500 h-[calc(100%-20%)] rounded p-4">
           <Link
             to="/dashboard"
             className="p-4  rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">

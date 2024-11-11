@@ -50,7 +50,7 @@ export default function Dashboard() {
       {!isLargeScreen && (
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="fixed top-12 left-4 z-20 p-2 bg-blue-900 text-white rounded-full shadow-md"
+          className="fixed top-12 left-4 z-20 p-2 bg-orange-500  text-white rounded-full shadow-md"
         >
           {isSidebarOpen ? (
             <svg
