@@ -18,33 +18,33 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
           <Link
             to="/dashboard"
             className="p-4  rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">
-            <FaChartPie className="text-xl" /> {/* Icon for Compose Email */}
-            <span>Dashboard</span> {/* Text for Compose Email */}
+            <FaChartPie className="text-xl" />
+            <span>Dashboard</span> 
           </Link>
           <Link
             to="/dashboard/template"
             className="p-4  rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">
-            <FaPen className="text-xl" /> {/* Icon for Compose Email */}
-            <span>Compose Email</span> {/* Text for Compose Email */}
+            <FaPen className="text-xl" /> 
+            <span>Compose Email</span> 
           </Link>
           <hr className="border-t border-primary my-8 mx-4" />
           <Link
             to="/dashboard"
             className="p-4  rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">
-            <FaClipboardList className="text-xl" /> {/* Icon for Compose Email */}
-            <span>Change Log</span> {/* Text for Compose Email */}
+            <FaClipboardList className="text-xl" /> 
+            <span>Change Log</span> 
           </Link>
           <Link
             to="/dashboard"
             className="p-4  rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">
-            <FaBook className="text-xl" /> {/* Icon for Compose Email */}
-            <span>Documentation</span> {/* Text for Compose Email */}
+            <FaBook className="text-xl" /> 
+            <span>Documentation</span> 
           </Link>
           <Link
             to="/dashboard"
             className="p-4  rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">
-            <FaQuestionCircle className="text-xl" /> {/* Icon for Compose Email */}
-            <span>Help</span> {/* Text for Compose Email */}
+            <FaQuestionCircle className="text-xl" /> 
+            <span>Help</span> 
           </Link>
         </div>
       </div>
