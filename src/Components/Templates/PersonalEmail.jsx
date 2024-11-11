@@ -32,7 +32,21 @@ const PersonalEmail = () => {
     }
   
     setLoading(true);
-    const zenInboxContext = `ZenInbox is a custom Email Sender developed by our Team. It is a website that allows users to compose only the body of emails, based on prompts provided by the user. You will only generate the content for the body of the email in plain text. Do not include any formal greetings, salutations, or subject lines. Do not format the text or include bold or any special characters. Only the body content should be generated.`;
+    const zenInboxContext = `
+    ZenInbox is a custom Email Sender developed by our Team. It is a website that allows users to compose *only the body* of emails based on prompts provided by the user. 
+    
+    You are only allowed to generate the body content in plain text. 
+    
+    Do not include:
+    - Greetings (e.g., Dear [Name], Hello, etc.)
+    - Salutations (e.g., Best regards, Sincerely, etc.)
+    - Subject lines
+    - Any bold or italicized text
+    - Any other formatting (e.g., lists, numbers)
+    - No special characters or extra line breaks
+    
+    Only generate the plain body text, based on the prompt provided.`
+    
     try {
       const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${import.meta.env.VITE_GEMINI_API}`, {
         contents: [{ parts: [{ text: zenInboxContext + question }] }],
