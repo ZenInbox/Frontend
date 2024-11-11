@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from "../Context/AuthContext";
 import { Link } from 'react-router-dom';
-import { FaPen, FaClipboardList, FaChartPie,FaHistory,FaBook, FaQuestionCircle } from 'react-icons/fa';
+import { FaPen, FaClipboardList, FaChartPie,FaBook, FaQuestionCircle ,FaPaperPlane, FaFileAlt, FaCalendarAlt, FaHistory} from 'react-icons/fa';
 
 export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
   const { currentUser } = useAuth();
@@ -27,6 +27,34 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
             <FaPen className="text-xl" /> 
             <span>Compose Email</span> 
           </Link>
+          <Link
+            to="/dashboard/template/sent"
+            className="p-4 rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">
+            <FaPaperPlane className="text-xl" /> 
+            <span>Sent</span> 
+          </Link>
+
+          <Link
+            to="/dashboard/template/drafts"
+            className="p-4 rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">
+            <FaFileAlt className="text-xl" /> 
+            <span>My Drafts</span> 
+          </Link>
+
+          <Link
+            to="/dashboard/template/scheduled"
+            className="p-4 rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">
+            <FaCalendarAlt className="text-xl" /> 
+            <span>Scheduled Emails</span> 
+          </Link>
+
+          <Link
+            to="/dashboard/template/activity"
+            className="p-4 rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">
+            <FaHistory className="text-xl" /> 
+            <span>My Activity</span> 
+          </Link>
+
           <hr className="border-t border-primary my-8 mx-4" />
           <Link
             to="/dashboard"
