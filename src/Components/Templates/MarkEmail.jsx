@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FaTrashAlt } from 'react-icons/fa';
+import axios from 'axios';
+
 
 const MarkEmail = () => {
   const [sender, setSender] = useState('');
@@ -15,6 +17,38 @@ const MarkEmail = () => {
   const [attachment, setAttachment] = useState(null);
   const [cta, setCta] = useState('');
   const [unsubscribe, setUnsubscribe] = useState('');
+  const [question, setQuestion] = useState("");
+  const [generatedContent, setGeneratedContent] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const generate = async () => {
+    if (!question.trim()) {
+      alert("Please enter a question or prompt.");
+      return;
+    }
+  
+    setLoading(true);
+    const zenInboxContext = `ZenInbox is a custom Email Sender developed by our Team. It is a website that allows users to compose emails with prompts provided by the user`;
+    try {
+      const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${import.meta.env.VITE_GEMINI_API}`, {
+        contents: [{ parts: [{ text: zenInboxContext + question }] }],
+      });
+  
+      if (response.data && response.data.candidates && response.data.candidates.length > 0) {
+        const newAnswer = response.data.candidates[0].content.parts[0].text;
+        setGeneratedContent(newAnswer);
+        setBody(newAnswer);
+      } else {
+        console.log("Unexpected response structure:", response.data);
+        alert("Failed to generate content.");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Error generating content. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const handleAddRecipient = () => {
     if (newRecipient.trim()) {
@@ -104,25 +138,46 @@ const MarkEmail = () => {
       </div>
 
       <div className="mb-4">
-        <label className="block text-hoverButtonColor font-semibold mb-2">Email Body</label>
-        <textarea
-          placeholder="Email Body (Include placeholders like {Name}, {Company}, {Discount})"
-          value={body}
-          onChange={(e) => setBody(e.target.value)}
-          className="w-full px-3 py-2 border border-primary rounded-md focus:outline-none focus:border-2 focus:border-primary"
-          rows="4"
-        />
-        
-        {/* Button to generate body content with AI */}
-        <div className="mt-4 flex justify-end">
-          <button
-            onClick={() => setBody('Exclusive Offer: Save 20% on your next purchase at {Company}! Use code {Discount}.')}
-            className="px-6 py-2 bg-primary text-white font-semibold rounded-md shadow hover:bg-hoverButtonColor transition duration-300 ease-in-out focus:outline-none focus:ring focus:ring-primary"
-          >
-            Generate Body with AI
-          </button>
-        </div>
-      </div>
+
+  {/* Input field for question */}
+  <div className="mb-4">
+    <label className="block text-hoverButtonColor font-semibold mb-2">Question/Prompt</label>
+    <input
+      type="text"
+      placeholder="Enter your question or prompt ! Yo ZenInBox will do it for you"
+      value={question}
+      onChange={(e) => setQuestion(e.target.value)}
+      className="w-full px-3 py-2 border border-primary rounded-md focus:outline-none focus:border-2 focus:border-primary"
+    />
+  </div>
+
+  {/* Button to generate body content with AI */}
+  <div className="mt-4 flex justify-end">
+    <button
+      className="px-6 py-2 bg-primary text-white font-semibold rounded-md shadow hover:bg-hoverButtonColor transition duration-300 ease-in-out focus:outline-none focus:ring focus:ring-primary"
+      onClick={generate}
+    >
+      Generate
+    </button>
+  </div>
+
+  {/* Loading state */}
+  <div className={loading ? "mt-4" : "hidden"}>
+    <p className="text-gray-500">Generating content...</p>
+  </div>
+
+  <label className="block text-hoverButtonColor font-semibold mb-2">AI Generated Content </label>
+  <div className="p-4 bg-white border border-hoverColor rounded-md">
+    <textarea
+      className="w-full p-2 border border-primary rounded-md"
+      placeholder="Generated content will appear here !  You can edit after you generate the prompt"
+      value={generatedContent || ''}
+      onChange={(e) => setGeneratedContent(e.target.value)}
+      // readOnly
+      rows="4"
+    />
+  </div>
+</div>
 
       <div className="mb-4 flex space-x-4">
         {/* Closing Field */}

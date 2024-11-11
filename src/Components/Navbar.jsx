@@ -27,7 +27,7 @@ export default function Navbar() {
     <header className="text-gray-50 fixed top-0 left-0 right-0 w-full z-10 bg-hoverColor/20 backdrop-filter backdrop-blur-lg mx-auto flex flex-col overflow-hidden px-2 py-1 lg:flex-row lg:items-center rounded-full my-4 max-w-7xl">
 
       <Link to="/" className="flex items-center whitespace-nowrap text-xl bg-transparent" onClick={handleLinkClick}>
-        <p className='bg-gradient-to-r from-primary via-primary to-hoverButtonColor ml-8 bg-clip-text text-transparent font-bold text-lg'>ZenInbox</p>
+        <p className='bg-gradient-to-r from-primary via-primary to-hoverButtonColor ml-8 bg-clip-text text-transparent font-bold text-lg'>ZenInBox</p>
       </Link>
       <input type="checkbox" className="peer hidden" id="navbar-open" ref={checkboxRef} />
       <label className="absolute top-5 right-5 cursor-pointer lg:hidden" htmlFor="navbar-open">

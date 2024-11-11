@@ -26,7 +26,7 @@ export default function Home() {
           <h1 className="text-slate-700 h-[100px] text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-center">
             Welcome to{" "}
             <span className="bg-gradient-to-r from-primary via-primary to-hoverButtonColor bg-clip-text text-transparent text-4xl md:text-5xl lg:text-6xl">
-              ZenInbox
+              ZenInBox
             </span>
           </h1>
           <p className="text-center md:text-lg lg:text-lg text-gray-500 px-4 md:px-8 lg:px-12">

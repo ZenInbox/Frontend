@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import Webcam from 'react-webcam';
 import { FaTrashAlt } from 'react-icons/fa';
+import axios from 'axios';
+
 
 const PersonalEmail = () => {
   const [sender, setSender] = useState('');
@@ -15,10 +17,43 @@ const PersonalEmail = () => {
   const [recordedVideo, setRecordedVideo] = useState(null);
   const [isWebcamOpen, setIsWebcamOpen] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
+  const [question, setQuestion] = useState("");
+  const [generatedContent, setGeneratedContent] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const webcamRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const recordedChunks = useRef([]);
+
+  const generate = async () => {
+    if (!question.trim()) {
+      alert("Please enter a question or prompt.");
+      return;
+    }
+  
+    setLoading(true);
+    const zenInboxContext = `ZenInbox is a custom Email Sender developed by our Team. It is a website that allows users to compose emails with prompts provided by the user`;
+    try {
+      const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${import.meta.env.VITE_GEMINI_API}`, {
+        contents: [{ parts: [{ text: zenInboxContext + question }] }],
+      });
+  
+      if (response.data && response.data.candidates && response.data.candidates.length > 0) {
+        const newAnswer = response.data.candidates[0].content.parts[0].text;
+        setGeneratedContent(newAnswer);
+        setBody(newAnswer);
+      } else {
+        console.log("Unexpected response structure:", response.data);
+        alert("Failed to generate content.");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Error generating content. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
 
   const handleAddRecipient = () => {
     if (newRecipient.trim()) {
@@ -38,35 +73,39 @@ const PersonalEmail = () => {
 
 
   const startRecording = () => {
-    setIsRecording(true);
-    recordedChunks.current = [];
-
-    const stream = webcamRef.current.video.srcObject;
-    mediaRecorderRef.current = new MediaRecorder(stream, {
-      mimeType: 'video/webm',
-    });
-
-    mediaRecorderRef.current.ondataavailable = (event) => {
-      if (event.data.size > 0) {
-        recordedChunks.current.push(event.data);
-      }
-    };
-
-    mediaRecorderRef.current.onstop = () => {
-      const videoBlob = new Blob(recordedChunks.current, {
-        type: 'video/webm',
+    if (webcamRef.current && webcamRef.current.video) {
+      setIsRecording(true);
+      recordedChunks.current = [];
+  
+      const stream = webcamRef.current.video.srcObject;
+      mediaRecorderRef.current = new MediaRecorder(stream, {
+        mimeType: 'video/webm',
       });
-      const videoUrl = URL.createObjectURL(videoBlob);
-      setRecordedVideo(videoUrl);
-      setIsRecording(false);
-    };
-
-    mediaRecorderRef.current.start();
-
-    setTimeout(() => {
-      mediaRecorderRef.current.stop();
-    }, 10000);
-  };
+  
+      mediaRecorderRef.current.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          recordedChunks.current.push(event.data);
+        }
+      };
+  
+      mediaRecorderRef.current.onstop = () => {
+        const videoBlob = new Blob(recordedChunks.current, {
+          type: 'video/webm',
+        });
+        const videoUrl = URL.createObjectURL(videoBlob);
+        setRecordedVideo(videoUrl);
+        setIsRecording(false);
+      };
+  
+      mediaRecorderRef.current.start();
+  
+      setTimeout(() => {
+        mediaRecorderRef.current.stop();
+      }, 10000);
+    } else {
+      console.log("Webcam not initialized yet.");
+    }
+  };  
 
   const generatePreview = () => {
     const formattedBody = `${salutation} ${recieverName},\n\n${body}\n\n${closing}\n${signature ? signature : ''}`;
@@ -133,26 +172,47 @@ const PersonalEmail = () => {
         </div>
       </div>
 
-      <div className="mb-4">
-        <label className="block text-hoverButtonColor font-semibold mb-2">Email Body</label>
-        <textarea
-          placeholder="Email Body (Use placeholders like {Name}, {Company}, {Location})"
-          value={body}
-          onChange={(e) => setBody(e.target.value)}
-          className="w-full px-3 py-2 border border-primary rounded-md focus:outline-none focus:border-2 focus:border-primary"
-          rows="4"
-        />
-        
-        {/* Button to generate body content with AI */}
-        <div className="mt-4 flex justify-end">
-          <button
-            onClick={() => setBody('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')}
-            className="px-6 py-2 bg-primary text-white font-semibold rounded-md shadow hover:bg-hoverButtonColor transition duration-300 ease-in-out focus:outline-none focus:ring focus:ring-primary"
-          >
-            Generate Body with AI
-          </button>
-        </div>
-      </div>
+<div className="mb-4">
+
+  {/* Input field for question */}
+  <div className="mb-4">
+    <label className="block text-hoverButtonColor font-semibold mb-2">Question/Prompt</label>
+    <input
+      type="text"
+      placeholder="Enter your question or prompt ! Yo ZenInBox will do it for you"
+      value={question}
+      onChange={(e) => setQuestion(e.target.value)}
+      className="w-full px-3 py-2 border border-primary rounded-md focus:outline-none focus:border-2 focus:border-primary"
+    />
+  </div>
+
+  {/* Button to generate body content with AI */}
+  <div className="mt-4 flex justify-end">
+    <button
+      className="px-6 py-2 bg-primary text-white font-semibold rounded-md shadow hover:bg-hoverButtonColor transition duration-300 ease-in-out focus:outline-none focus:ring focus:ring-primary"
+      onClick={generate}
+    >
+      Generate
+    </button>
+  </div>
+
+  {/* Loading state */}
+  <div className={loading ? "mt-4" : "hidden"}>
+    <p className="text-gray-500">Generating content...</p>
+  </div>
+
+  <label className="block text-hoverButtonColor font-semibold mb-2">AI Generated Content </label>
+  <div className="p-4 bg-white border border-hoverColor rounded-md">
+    <textarea
+      className="w-full p-2 border border-primary rounded-md"
+      placeholder="Generated content will appear here !  You can edit after you generate the prompt"
+      value={generatedContent || ''}
+      onChange={(e) => setGeneratedContent(e.target.value)}
+      // readOnly
+      rows="4"
+    />
+  </div>
+</div>
 
       <div className="mb-4 flex space-x-4">
         {/* Closing Field */}
