@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import BackgroundDots from './Utils/BackgroundDots';
 
 export default function Home() {
   const { loginWithGoogle, logout, isLoggedIn, currentUser } = useAuth();
@@ -21,8 +22,10 @@ export default function Home() {
 
   return (
     <> 
-      <div className="animate-float h-screen bg-cover bg-center grid grid-cols-1 lg:grid-cols-12 items-center justify-center text-center px-4 bg-gradient-to-b from-white to-hoverColor rounded-lg">
-        <div className="col-span-1 lg:col-span-8 lg:col-start-3 mt-24 sm:m-6">
+
+      <div className=" relative h-screen animate-float h-screen bg-cover bg-center grid grid-cols-1 lg:grid-cols-12 items-center justify-center text-center px-4 bg-gradient-to-b from-white to-hoverColor rounded-lg">
+      <BackgroundDots className="absolute inset-0 z-0"/>
+        <div className="z-10 col-span-1 lg:col-span-8 lg:col-start-3 mt-24 sm:m-6">
           <h1 className="text-slate-700 h-[100px] text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-center">
             Welcome to{" "}
             <span className="bg-gradient-to-r from-primary via-primary to-hoverButtonColor bg-clip-text text-transparent text-4xl md:text-5xl lg:text-6xl">
@@ -40,8 +43,9 @@ export default function Home() {
               Learn More
             </button>
           </div>
-        </div>
+        </div>     
       </div>
+
     </>
   );
 }
