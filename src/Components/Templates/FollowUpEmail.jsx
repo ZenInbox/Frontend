@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { FaTrashAlt } from 'react-icons/fa';
 import axios from 'axios';
 
+
 const FollowUpEmail = () => {
   const [sender, setSender] = useState('');
   const [subject, setSubject] = useState('');
@@ -19,6 +20,7 @@ const FollowUpEmail = () => {
   const [question, setQuestion] = useState("");
   const [generatedContent, setGeneratedContent] = useState('');
   const [loading, setLoading] = useState(false);
+  
 
   const handleAddRecipient = () => {
     if (newRecipient.trim()) {
@@ -104,6 +106,39 @@ const FollowUpEmail = () => {
 
   const handleSubmit = () => {
     alert('Follow-up email sent!');
+  };
+
+  const handleSendEmail = async () => {
+    try {
+      let attachmentURL = null;
+      if (attachment) {
+        attachmentURL = await upload(attachment, sender);
+      }
+      const emailData = {
+        sender,
+        recipients,
+        subject,
+        body,
+        attachments: attachmentURL ? [attachmentURL] : [], 
+        accessToken: localStorage.getItem("gmailAccessToken")
+      };
+  
+      const response = await axios.post("http://localhost:5000/api/email/send-email", emailData);
+  
+      if (response.status === 200) {
+        alert('Email sent successfully!');
+        setSender("");
+        setRecipients([]);
+        setAttachment(null);
+        setBody("");
+        setSubject("")
+      } else {
+        alert('Failed to send email.');
+      }
+    } catch (error) {
+      console.error('Error uploading file or sending email:', error);
+      alert('Error occurred while sending email.');
+    }
   };
 
   return (
@@ -328,6 +363,7 @@ const FollowUpEmail = () => {
       </div>
 
       <button
+      onClick={handleSendEmail}
         className="w-full py-2 mt-2 bg-primary text-white font-semibold rounded-md shadow hover:bg-hoverButtonColor focus:outline-none"
       >
         Send Email
