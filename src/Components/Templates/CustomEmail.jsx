@@ -1,14 +1,56 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FaTrashAlt } from 'react-icons/fa';
+import axios from "axios";
+import upload from '../Utils/Upload';
+import { useAuth } from '../../Context/AuthContext';
 
 const CustomEmail = () => {
-  const [sender, setSender] = useState('');
+
+  const { currentUser } = useAuth();
+
+  const [sender, setSender] = useState();
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
   const [recipients, setRecipients] = useState([]);
   const [newRecipient, setNewRecipient] = useState('');
   const [attachment, setAttachment] = useState(null);
+
+
+  const handleSendEmail = async () => {
+    try {
+      let attachmentURL = null;
+      if (attachment) {
+        attachmentURL = await upload(attachment, sender);
+      }
+      const emailData = {
+        sender,
+        recipients,
+        subject,
+        body,
+        attachments: attachmentURL ? [attachmentURL] : [], 
+        accessToken: localStorage.getItem("gmailAccessToken")
+      };
+  
+      const response = await axios.post("http://localhost:5000/api/email/send-email", emailData);
+  
+      if (response.status === 200) {
+        alert('Email sent successfully!');
+        setSender("");
+        setRecipients([]);
+        setAttachment(null);
+        setBody("");
+        setSubject("")
+      } else {
+        alert('Failed to send email.');
+      }
+    } catch (error) {
+      console.error('Error uploading file or sending email:', error);
+      alert('Error occurred while sending email.');
+    }
+  };
+
+
 
   const handleAddRecipient = () => {
     if (newRecipient.trim()) {
@@ -29,7 +71,7 @@ const CustomEmail = () => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: handleAttachmentChange,
-    accept: '.jpg,.jpeg,.png,.pdf,.doc,.docx,.ppt,.pptx',
+    accept: '.jpg,.jpeg,.png,.pdf,.doc,.docx,.ppt',
   });
 
   const generatePreview = () => {
@@ -139,6 +181,7 @@ const CustomEmail = () => {
       </div>
 
       <button
+        onClick={handleSendEmail}
         className="w-full py-2 mt-4 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700 focus:outline-none"
       >
         Send Email

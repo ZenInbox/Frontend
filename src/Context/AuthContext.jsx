@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.post(`${baseURL}/api/user/fetchuser`, { uid });
       setCurrentUser(response.data.user);
+      console.log(response.data.user)
     } catch (error) {
       console.log(error);
     }
