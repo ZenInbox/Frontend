@@ -90,20 +90,36 @@ const FollowUpEmail = () => {
   }
 
   const generatePreview = () => {
+    const formattedFollowUpDate = followUpDate
+      ? new Date(followUpDate).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })
+      : '';
+  
+    const formattedBody = `
+  ${salutation ? salutation + ',\n' : ''}
+  
+  ${body}
+  
+  ${closing ? closing + ',\n' : ''}
+  ${signature ? signature + '\n' : ''}
+  ${designation ? designation + '\n' : ''}
+  
+  ${formattedFollowUpDate ? `Follow-Up Date: ${formattedFollowUpDate}` : ''}
+  `;
+  
     return (
       <div className="p-4 my-4 bg-hoverColor border border-primary rounded-md shadow">
         <h3 className="font-semibold">To: {recipients.join(', ')}</h3>
         <h4 className="font-semibold">Subject: {subject}</h4>
-        <p className="mt-2">
-          {salutation},<br /><br />
-          {body}<br /> <br />
-          {closing}<br />
-          {signature && <span>{signature}<br /></span>}
-          {designation && <span>{designation}</span>}
-        </p>
+        <p className="mt-2 whitespace-pre-wrap">{formattedBody}</p>
       </div>
     );
   };
+  
+  
 
   const handleSubmit = () => {
     alert('Follow-up email sent!');
@@ -115,11 +131,32 @@ const FollowUpEmail = () => {
       if (attachment) {
         attachmentURL = await upload(attachment, sender);
       }
+
+      const formattedFollowUpDate = followUpDate
+      ? new Date(followUpDate).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })
+      : '';
+
+      const formattedBody = `
+      ${salutation ? salutation + ',<br><br>' : ''}
+
+      ${body.replace(/\n/g, '<br>')}<br><br>
+
+      ${closing ? closing + ',<br><br>' : ''}
+      ${signature ? signature + '<br>' : ''}
+      ${designation ? designation + '<br>' : ''}
+
+      ${formattedFollowUpDate ? `Follow-Up Date: ${formattedFollowUpDate}<br>` : ''}
+      `;
+
       const emailData = {
         sender,
         recipients,
         subject,
-        body,
+        body: formattedBody,
         attachments: attachmentURL ? [attachmentURL] : [], 
         accessToken: localStorage.getItem("gmailAccessToken")
       };
@@ -133,6 +170,14 @@ const FollowUpEmail = () => {
         setAttachment(null);
         setBody("");
         setSubject("")
+        setSalutation("")
+        setFollowUpDate("")
+        setPriority("Normal")
+        setSalutation('Greetings');
+        setClosing('Looking forward to your reply.');
+        setQuestion("")
+        setGeneratedContent("")
+        
       } else {
         alert('Failed to send email.');
       }
