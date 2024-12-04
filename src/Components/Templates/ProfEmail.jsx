@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FaTrashAlt } from 'react-icons/fa';
 import axios from 'axios';
+import upload from '../Utils/Upload';
 
 const ProfEmail = () => {
   const [sender, setSender] = useState('');
@@ -94,6 +95,55 @@ const ProfEmail = () => {
         <p className="mt-2 whitespace-pre-wrap">{formattedBody}</p>
       </div>
     );
+  };
+
+  const handleSendEmail = async () => {
+    try {
+      let attachmentURL = null;
+      if (attachment) {
+        attachmentURL = await upload(attachment, sender);
+      }
+
+      const formattedBody = `
+      ${salutation ? salutation + ',<br><br>' : ''}
+
+      ${body.replace(/\n/g, '<br>')}<br><br>
+
+      ${closing ? closing + '<br><br>' : ''}
+      ${signature ? signature + '<br>' : ''}
+      ${designation ? designation + '<br>' : ''}
+      `;
+
+      const emailData = {
+        sender,
+        recipients,
+        subject,
+        body: formattedBody,
+        attachments: attachmentURL ? [attachmentURL] : [], 
+        accessToken: localStorage.getItem("gmailAccessToken")
+      };
+  
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/email/send-email`, emailData);
+  
+      if (response.status === 200) {
+        alert('Email sent successfully!');
+        setSender("");
+        setRecipients([]);
+        setAttachment(null);
+        setBody("");
+        setSubject("")
+        setSalutation("Dear")
+        setClosing('Best regards,');
+        setQuestion("")
+        setGeneratedContent("")
+        
+      } else {
+        alert('Failed to send email.');
+      }
+    } catch (error) {
+      console.error('Error uploading file or sending email:', error);
+      alert('Error occurred while sending email.');
+    }
   };
 
   return (
@@ -291,6 +341,7 @@ const ProfEmail = () => {
       </div>
 
       <button
+      onClick={handleSendEmail}
         className="w-full py-2 mt-2 bg-primary text-white font-semibold rounded-md shadow hover:bg-hoverButtonColor focus:outline-none"
       >
         Send Email
