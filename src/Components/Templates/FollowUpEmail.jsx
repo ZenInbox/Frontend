@@ -177,7 +177,8 @@ const FollowUpEmail = () => {
         setClosing('Looking forward to your reply.');
         setQuestion("")
         setGeneratedContent("")
-        
+        setDesignation("")
+        setSignature("")
       } else {
         alert('Failed to send email.');
       }

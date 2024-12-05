@@ -136,7 +136,8 @@ const ProfEmail = () => {
         setClosing('Best regards,');
         setQuestion("")
         setGeneratedContent("")
-        
+        setDesignation("")
+        setSignature("")
       } else {
         alert('Failed to send email.');
       }
