@@ -8,8 +8,7 @@ import { useAuth } from '../../Context/AuthContext';
 const CustomEmail = () => {
 
   const { currentUser } = useAuth();
-
-  const [sender, setSender] = useState();
+  const [sender, setSender] = useState(currentUser.email);
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
   const [recipients, setRecipients] = useState([]);
@@ -95,6 +94,7 @@ const CustomEmail = () => {
           placeholder="Sender's Email"
           value={sender}
           onChange={(e) => setSender(e.target.value)}
+          disabled
           className="w-full px-3 py-2 border border-orange-300 rounded-md focus:outline-none focus:ring focus:ring-orange-200"
         />
       </div>
