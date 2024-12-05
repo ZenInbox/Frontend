@@ -277,8 +277,11 @@ const PersonalEmail = () => {
             className="w-full p-2 border border-primary rounded-md"
             placeholder="Generated content will appear here !  You can edit after you generate the prompt"
             value={generatedContent || ''}
-            onChange={(e) => setGeneratedContent(e.target.value)}
-            // readOnly
+            onChange={(e) => {
+              const newValue = e.target.value;
+              setGeneratedContent(newValue);  
+              setBody(newValue);  
+            }}
             rows="4"
           />
         </div>
