@@ -2,10 +2,13 @@ import React, { useState, useRef } from 'react';
 import Webcam from 'react-webcam';
 import { FaTrashAlt } from 'react-icons/fa';
 import axios from 'axios';
+import upload from '../Utils/Upload';
+import { useAuth } from '../../Context/AuthContext';
 
 
 const PersonalEmail = () => {
-  const [sender, setSender] = useState('');
+  const { currentUser } = useAuth();
+  const [sender, setSender] = useState(currentUser.email);
   const [subject, setSubject] = useState('');
   const [salutation, setSalutation] = useState('Hi');
   const [closing, setClosing] = useState('Warm regards,');
@@ -157,6 +160,7 @@ const PersonalEmail = () => {
             placeholder="Sender's Email"
             value={sender}
             onChange={(e) => setSender(e.target.value)}
+            disabled
             className="w-full px-3 py-2 border border-primary rounded-md focus:outline-none focus:border-2 focus:border-primary"
           />
         </div>

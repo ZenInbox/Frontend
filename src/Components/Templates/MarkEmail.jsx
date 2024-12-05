@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FaTrashAlt } from 'react-icons/fa';
 import axios from 'axios';
+import upload from '../Utils/Upload';
+import { useAuth } from '../../Context/AuthContext';
 
 
 const MarkEmail = () => {
-  const [sender, setSender] = useState('');
+  const { currentUser } = useAuth();
+  const [sender, setSender] = useState(currentUser.email);
   const [subject, setSubject] = useState('');
   const [salutation, setSalutation] = useState('Greatings');
   const [closing, setClosing] = useState('Thanks!');
@@ -109,6 +112,59 @@ const MarkEmail = () => {
     alert('Marketing email sent!');
   };
 
+  const handleSendEmail = async () => {
+    try {
+      let attachmentURL = null;
+      if (attachment) {
+        attachmentURL = await upload(attachment, sender);
+      }
+
+      const formattedBody = `
+      ${salutation ? salutation + ',<br><br>' : ''}
+
+      ${body.replace(/\n/g, '<br>')}<br>
+      ${cta ? `<span style="font-size: 1.25rem; font-weight: bold; color: #F97316;">${cta}</span><br><br>` : ''}
+      ${closing ? closing + '<br><br>' : ''}
+      ${signature ? signature + '<br>' : ''}
+      ${designation ? designation + '<br><br>' : ''}
+      ${unsubscribe ? `<span style="font-size: 0.875rem; color: #3B82F6;">Unsubscribe from here: ${unsubscribe}</span><br><br>` : ''}
+      `;
+
+      const emailData = {
+        sender,
+        recipients,
+        subject,
+        body: formattedBody,
+        attachments: attachmentURL ? [attachmentURL] : [], 
+        accessToken: localStorage.getItem("gmailAccessToken")
+      };
+  
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/email/send-email`, emailData);
+  
+      if (response.status === 200) {
+        alert('Email sent successfully!');
+        setSender(currentUser.email);
+        setRecipients([]);
+        setAttachment(null);
+        setBody("");
+        setSubject("")
+        setSalutation("Greetings")
+        setClosing('Thanks!');
+        setQuestion("")
+        setGeneratedContent("")
+        setDesignation("")
+        setSignature("")
+        setUnsubscribe("")
+        setCta("")
+      } else {
+        alert('Failed to send email.');
+      }
+    } catch (error) {
+      console.error('Error uploading file or sending email:', error);
+      alert('Error occurred while sending email.');
+    }
+  };
+
   return (
     <div className="w-[80%] mx-auto p-6 mt-[120px] mb-12 rounded-lg">
       <h2 className="text-4xl font-bold mb-12 text-center">Marketing Email</h2>
@@ -122,6 +178,7 @@ const MarkEmail = () => {
             placeholder="Sender's Email"
             value={sender}
             onChange={(e) => setSender(e.target.value)}
+            disabled
             className="w-full px-3 py-2 border border-primary rounded-md focus:outline-none focus:border-2 focus:border-primary"
           />
         </div>
@@ -334,7 +391,7 @@ const MarkEmail = () => {
 
       <button
         className="w-full py-2 mt-2 bg-primary text-white font-semibold rounded-md shadow hover:bg-hoverButtonColor focus:outline-none"
-        onClick={handleSubmit}
+        onClick={handleSendEmail}
       >
         Send Email
       </button>
