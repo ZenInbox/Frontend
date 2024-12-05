@@ -17,7 +17,7 @@ export default function Template() {
           <div className="bg-white shadow-lg hover:shadow-2xl hover:scale-105 rounded-xl overflow-hidden transition duration-300 h-[350px] w-[80%] mx-auto flex flex-col">
             <div className="relative w-full h-[60%]">
               <img
-                src="https://via.placeholder.com/300x150"
+                src="https://media.istockphoto.com/id/1440187828/vector/a-man-sending-an-email-with-a-smile.jpg?s=612x612&w=0&k=20&c=jQodZlwEkGzgNoEAMGkKn-F0G5mJnWIOpTmkfyFmSvA="
                 alt="Template 1"
                 className="w-full h-full object-cover"
               />
@@ -39,7 +39,7 @@ export default function Template() {
           <div className="bg-white shadow-lg hover:shadow-2xl hover:scale-105 rounded-xl overflow-hidden transition duration-300 h-[350px] w-[80%] mx-auto flex flex-col">
             <div className="relative w-full h-[60%]">
               <img
-                src="https://via.placeholder.com/300x150"
+                src="https://media.istockphoto.com/id/1160905368/vector/smiling-woman-sitting-at-computer-writing-messages-and-icons-envelopes-floating-in-speech.jpg?s=612x612&w=0&k=20&c=E0Ca2WGMA8we-fWsZH3Slzovoq5x3EjvQEgysOdKt6U="
                 alt="Template 2"
                 className="w-full h-full object-cover"
               />
@@ -61,7 +61,7 @@ export default function Template() {
           <div className="bg-white shadow-lg hover:shadow-2xl hover:scale-105 rounded-xl overflow-hidden transition duration-300 h-[350px] w-[80%] mx-auto flex flex-col">
             <div className="relative w-full h-[60%]">
               <img
-                src="https://via.placeholder.com/300x150"
+                src="https://img.freepik.com/free-vector/businessman-with-e-mail-marketing-icons_24877-51328.jpg"
                 alt="Template 3"
                 className="w-full h-full object-cover"
               />
@@ -83,7 +83,7 @@ export default function Template() {
           <div className="bg-white shadow-xl hover:shadow-2xl hover:scale-105 rounded-xl overflow-hidden transition duration-300 h-[350px] w-[80%] mx-auto flex flex-col">
             <div className="relative w-full h-[60%]">
               <img
-                src="https://via.placeholder.com/300x150"
+                src="https://img.freepik.com/free-vector/woman-receiving-mail-reading-letter_74855-5964.jpg"
                 alt="Template 4"
                 className="w-full h-full object-cover"
               />
