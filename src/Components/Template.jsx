@@ -50,7 +50,7 @@ export default function Template() {
                 Personal Email Template
               </h2>
               <p className="text-gray-500 text-sm md:text-sm">
-                Write a professional email template to your boss or colleagues to make your communication clear and efficient.
+                Write a thoughtful and concise personal email to nurture connections and convey your message clearly.
               </p>
             </div>
           </div>
@@ -72,7 +72,7 @@ export default function Template() {
                 Marketing Email Template
               </h2>
               <p className="text-gray-500 text-sm md:text-sm">
-                Write a professional email template to your boss or colleagues to make your communication clear and efficient.
+                Write a compelling and targeted marketing email to grab attention and encourage customer engagement.
               </p>
             </div>
           </div>
@@ -94,7 +94,7 @@ export default function Template() {
                 Follow-Up Email Template
               </h2>
               <p className="text-gray-500 text-sm md:text-sm">
-                Write a professional email template to your boss or colleagues to make your communication clear and efficient.
+               Write a polite and professional follow-up email to prompt responses and keep projects moving forward
               </p>
             </div>
           </div>

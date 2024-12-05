@@ -43,8 +43,8 @@ export default function SentEmails() {
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-4 text-center">Sent Emails</h1>
+    <div className="p-6 bg-hoverColor min-h-screen">
+      <h1 className="text-3xl md:text-4xl font-bold mb-10 text-center text-primary">Sent Emails</h1>
 
       <InfiniteScroll
         dataLength={emails.length}  
@@ -53,20 +53,30 @@ export default function SentEmails() {
         loader={<div className="text-center">Loading...</div>}  
         endMessage={<div className="text-center text-gray-500">No more emails to show.</div>}  
       >
-        <div className="grid gap-4">
-          {emails.map((email , i) => (
-            <div
-              key={i}
-              className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer"
-              onClick={() => setSelectedEmail(email)}
-            >
-              <h2 className="text-lg font-semibold text-gray-800">{email.subject}</h2>
-              <p className="text-xs text-gray-400">
-                Sent on: {new Date(email.createdAt).toLocaleString()}
-              </p>
-            </div>
-          ))}
-        </div>
+      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {emails.map((email, i) => (
+          <div
+            key={i}
+            className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow cursor-pointer hover:bg-gray-50"
+            onClick={() => setSelectedEmail(email)}
+          >
+            <h2 className="text-xl font-semibold text-gray-800 mb-2">{email.subject}</h2>
+            
+            <p className="text-sm text-gray-500 mb-4">
+              Sent on: {new Date(email.createdAt).toLocaleString()}
+            </p>
+            
+            <p className="text-gray-600 line-clamp-2">
+              {email.body 
+                ? email.body
+                    .replace(/<br\s*\/?>/g, ' ')        // Remove <br> tags
+                    .replace(/<\/?[^>]+(>|$)/g, "")      // Remove all HTML tags
+                    .replace(/\n/g, ' ')                
+                : 'No preview available'}
+            </p>
+          </div>
+        ))}
+      </div>
       </InfiniteScroll>
 
       {selectedEmail && (
