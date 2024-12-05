@@ -54,9 +54,9 @@ export default function SentEmails() {
         endMessage={<div className="text-center text-gray-500">No more emails to show.</div>}  
       >
         <div className="grid gap-4">
-          {emails.map((email) => (
+          {emails.map((email , i) => (
             <div
-              key={email._id}
+              key={i}
               className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer"
               onClick={() => setSelectedEmail(email)}
             >
