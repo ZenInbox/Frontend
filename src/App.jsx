@@ -12,6 +12,7 @@ import MarkEmail from './Components/Templates/MarkEmail';
 import FollowUpEmail from './Components/Templates/FollowUpEmail';
 import PersonalEmail from './Components/Templates/PersonalEmail';
 import Template from './Components/Template';
+import SentEmails from './Components/SentEmails';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} >
             <Route index element={<Template />} /> 
             <Route path="/dashboard/template" element={<Template />} />
+            <Route path="/dashboard/sent" element = {<SentEmails/>}/>
           </Route>
           <Route path="/dashboard/template/custom" element={<CustomEmail />} />
           <Route path="/dashboard/template/prof" element={<ProfEmail />} />

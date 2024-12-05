@@ -28,7 +28,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
             <span>Compose Email</span> 
           </Link>
           <Link
-            to="/dashboard/template/sent"
+            to="/dashboard/sent"
             className="p-4 rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">
             <FaPaperPlane className="text-xl" /> 
             <span>Sent</span> 
