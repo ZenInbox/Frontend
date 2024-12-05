@@ -50,8 +50,8 @@ export default function SentEmails() {
         dataLength={emails.length}  
         next={loadMoreEmails}
         hasMore={hasMore} 
-        loader={<div className="text-center">Loading...</div>}  
-        endMessage={<div className="text-center text-gray-500">No more emails to show.</div>}  
+        loader={<div className="text-center mt-4">Loading...</div>}  
+        endMessage={<div className="text-center text-gray-500 mt-4">No more emails to show.</div>}  
       >
       <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {emails.map((email, i) => (
@@ -60,7 +60,7 @@ export default function SentEmails() {
             className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow cursor-pointer hover:bg-gray-50"
             onClick={() => setSelectedEmail(email)}
           >
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">{email.subject}</h2>
+            <h2 className="text-xl font-semibold text-hoverButtonColor mb-2">{email.subject}</h2>
             
             <p className="text-sm text-gray-500 mb-4">
               Sent on: {new Date(email.createdAt).toLocaleString()}
