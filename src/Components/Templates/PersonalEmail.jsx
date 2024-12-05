@@ -18,6 +18,7 @@ const PersonalEmail = () => {
   const [recipients, setRecipients] = useState([]);
   const [newRecipient, setNewRecipient] = useState('');
   const [recordedVideo, setRecordedVideo] = useState(null);
+  const [recordedVideoFile, setRecordedVideoFile] = useState(null);
   const [isWebcamOpen, setIsWebcamOpen] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [question, setQuestion] = useState("");
@@ -111,6 +112,7 @@ const PersonalEmail = () => {
         });
         const videoUrl = URL.createObjectURL(videoBlob);
         setRecordedVideo(videoUrl);
+        setRecordedVideoFile(videoBlob);
         setIsRecording(false);
       };
   
@@ -118,7 +120,7 @@ const PersonalEmail = () => {
   
       setTimeout(() => {
         mediaRecorderRef.current.stop();
-      }, 10000);
+      }, 5000);
     } else {
       console.log("Webcam not initialized yet.");
     }
@@ -145,6 +147,56 @@ const PersonalEmail = () => {
         )}
       </div>
     );
+  };
+
+  const handleSendEmail = async () => {
+    try {
+      let attachmentURL = null;
+      if (recordedVideoFile) {
+        attachmentURL = await upload(recordedVideoFile, sender);
+      }
+
+      const formattedBody = `
+      ${salutation ? salutation + ', ' : ''}${recieverName ? recieverName: ''}
+
+      <br><br>${body.replace(/\n/g, '<br>')}<br><br>
+
+      ${closing ? closing + '<br><br>' : ''}
+      ${signature ? signature + '<br>' : ''}
+      ${recieverName ? recieverName + '<br>' : ''}
+      `;
+
+      const emailData = {
+        sender,
+        recipients,
+        subject,
+        body: formattedBody,
+        attachments: attachmentURL ? [attachmentURL] : [], 
+        accessToken: localStorage.getItem("gmailAccessToken")
+      };
+  
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/email/send-email`, emailData);
+  
+      if (response.status === 200) {
+        alert('Email sent successfully!');
+        setSender(currentUser.email);
+        setRecipients([]);
+        setRecordedVideo(null);
+        setBody("");
+        setSubject("")
+        setSalutation("Hi")
+        setClosing('Warm regards');
+        setQuestion("")
+        setGeneratedContent("")
+        setRecieverName("")
+        setSignature("")
+      } else {
+        alert('Failed to send email.');
+      }
+    } catch (error) {
+      console.error('Error uploading file or sending email:', error);
+      alert('Error occurred while sending email.');
+    }
   };
 
   return (
@@ -190,47 +242,47 @@ const PersonalEmail = () => {
         </div>
       </div>
 
-<div className="mb-4">
+      <div className="mb-4">
 
-  {/* Input field for question */}
-  <div className="mb-4">
-    <label className="block text-hoverButtonColor font-semibold mb-2">Question/Prompt</label>
-    <input
-      type="text"
-      placeholder="Enter your question or prompt ! Yo ZenInBox will do it for you"
-      value={question}
-      onChange={(e) => setQuestion(e.target.value)}
-      className="w-full px-3 py-2 border border-primary rounded-md focus:outline-none focus:border-2 focus:border-primary"
-    />
-  </div>
+        {/* Input field for question */}
+        <div className="mb-4">
+          <label className="block text-hoverButtonColor font-semibold mb-2">Question/Prompt</label>
+          <input
+            type="text"
+            placeholder="Enter your question or prompt ! Yo ZenInBox will do it for you"
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            className="w-full px-3 py-2 border border-primary rounded-md focus:outline-none focus:border-2 focus:border-primary"
+          />
+        </div>
 
-  {/* Button to generate body content with AI */}
-  <div className="mt-4 flex justify-end">
-    <button
-      className="px-6 py-2 bg-primary text-white font-semibold rounded-md shadow hover:bg-hoverButtonColor transition duration-300 ease-in-out focus:outline-none focus:ring focus:ring-primary"
-      onClick={generate}
-    >
-      Generate
-    </button>
-  </div>
+        {/* Button to generate body content with AI */}
+        <div className="mt-4 flex justify-end">
+          <button
+            className="px-6 py-2 bg-primary text-white font-semibold rounded-md shadow hover:bg-hoverButtonColor transition duration-300 ease-in-out focus:outline-none focus:ring focus:ring-primary"
+            onClick={generate}
+          >
+            Generate
+          </button>
+        </div>
 
-  {/* Loading state */}
-  <div className={loading ? "mt-4" : "hidden"}>
-    <p className="text-gray-500">Generating content...</p>
-  </div>
+        {/* Loading state */}
+        <div className={loading ? "mt-4" : "hidden"}>
+          <p className="text-gray-500">Generating content...</p>
+        </div>
 
-  <label className="block text-hoverButtonColor font-semibold mb-2">AI Generated Content </label>
-  <div className="p-4 bg-white border border-hoverColor rounded-md">
-    <textarea
-      className="w-full p-2 border border-primary rounded-md"
-      placeholder="Generated content will appear here !  You can edit after you generate the prompt"
-      value={generatedContent || ''}
-      onChange={(e) => setGeneratedContent(e.target.value)}
-      // readOnly
-      rows="4"
-    />
-  </div>
-</div>
+        <label className="block text-hoverButtonColor font-semibold mb-2">AI Generated Content </label>
+        <div className="p-4 bg-white border border-hoverColor rounded-md">
+          <textarea
+            className="w-full p-2 border border-primary rounded-md"
+            placeholder="Generated content will appear here !  You can edit after you generate the prompt"
+            value={generatedContent || ''}
+            onChange={(e) => setGeneratedContent(e.target.value)}
+            // readOnly
+            rows="4"
+          />
+        </div>
+      </div>
 
       <div className="mb-4 flex space-x-4">
         {/* Closing Field */}
@@ -337,7 +389,7 @@ const PersonalEmail = () => {
                 isRecording ? 'bg-gray-400' : 'bg-primary'
               } text-white font-semibold rounded-md shadow hover:bg-hoverButtonColor focus:outline-none`}
             >
-              {isRecording ? 'Recording...' : 'Start 10-Second Recording'}
+              {isRecording ? 'Recording...' : 'Start 5-Second Recording'}
             </button>
             <button
               onClick={() => setIsWebcamOpen(false)}
@@ -358,6 +410,7 @@ const PersonalEmail = () => {
       </div>
 
       <button
+      onClick={handleSendEmail}
         className="w-full py-2 mt-2 bg-primary text-white font-semibold rounded-md shadow hover:bg-hoverButtonColor focus:outline-none"
       >
         Send Email

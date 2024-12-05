@@ -167,7 +167,7 @@ const FollowUpEmail = () => {
   
       if (response.status === 200) {
         alert('Email sent successfully!');
-        setSender("");
+        setSender(currentUser.email);
         setRecipients([]);
         setAttachment(null);
         setBody("");
