@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import Webcam from 'react-webcam';
 import { FaTrashAlt } from 'react-icons/fa';
 import axios from 'axios';
+import upload from '../Utils/Upload';
 import { useAuth } from '../../Context/AuthContext';
 
 
