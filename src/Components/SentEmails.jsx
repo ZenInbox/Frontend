@@ -1,22 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../Context/AuthContext";
 import axios from "axios";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function SentEmails() {
   const [emails, setEmails] = useState([]);
   const [selectedEmail, setSelectedEmail] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true); 
   const { currentUser } = useAuth();
+  const [page, setPage] = useState(1);  
 
   const fetchSentEmails = async () => {
+    setLoading(true);
     try {
       const userEmail = currentUser.email;
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/email/sent`,
-        { senderEmail: userEmail }
+        { senderEmail: userEmail, page: page }
       );
-      setEmails(response.data);
+
+      setEmails((prevEmails) => [...prevEmails, ...response.data]);
+
+      if (response.data.length === 0) {
+        setHasMore(false);
+      }
     } catch (error) {
       console.error("Error fetching sent emails:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -24,12 +36,23 @@ export default function SentEmails() {
     if (currentUser?.email) {
       fetchSentEmails();
     }
-  }, [currentUser]);
+  }, [currentUser, page]); 
+
+  const loadMoreEmails = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-4 text-center">Emails</h1>
-      {emails.length > 0 ? (
+      <h1 className="text-2xl font-bold mb-4 text-center">Sent Emails</h1>
+
+      <InfiniteScroll
+        dataLength={emails.length}  
+        next={loadMoreEmails}
+        hasMore={hasMore} 
+        loader={<div className="text-center">Loading...</div>}  
+        endMessage={<div className="text-center text-gray-500">No more emails to show.</div>}  
+      >
         <div className="grid gap-4">
           {emails.map((email) => (
             <div
@@ -37,17 +60,14 @@ export default function SentEmails() {
               className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer"
               onClick={() => setSelectedEmail(email)}
             >
-                <h2 className="text-lg font-semibold text-gray-800">{email.subject}</h2>
-                <p className="text-sm text-gray-500">From: {email.sender}</p>
-                <p className="text-xs text-gray-400">
-                    Sent on: {new Date(email.createdAt).toLocaleString()}
-                </p>
+              <h2 className="text-lg font-semibold text-gray-800">{email.subject}</h2>
+              <p className="text-xs text-gray-400">
+                Sent on: {new Date(email.createdAt).toLocaleString()}
+              </p>
             </div>
           ))}
         </div>
-      ) : (
-        <p className="text-gray-500">No emails found.</p>
-      )}
+      </InfiniteScroll>
 
       {selectedEmail && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
@@ -72,17 +92,17 @@ export default function SentEmails() {
             {selectedEmail.attachments.length > 0 && (
               <div className="mb-8">
                 <p className="font-bold">Attachments:</p>
-                <div >
+                <div>
                   {selectedEmail.attachments.map((attachment, index) => (
                     <p key={index} className="mt-4">
-                     <a
+                      <a
                         href={attachment}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-2  bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors"
-                        >
+                        className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors"
+                      >
                         View Attachment {index + 1}
-                        </a>
+                      </a>
                     </p>
                   ))}
                 </div>
