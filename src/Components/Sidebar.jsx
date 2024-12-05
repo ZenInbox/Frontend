@@ -22,7 +22,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
             <span>Dashboard</span> 
           </Link>
           <Link
-            to="/dashboard/template"
+            to="/dashboard/template/custom"
             className="p-4  rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">
             <FaPen className="text-xl" /> 
             <span>Compose Email</span> 
