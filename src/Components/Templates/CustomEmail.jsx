@@ -16,10 +16,12 @@ const CustomEmail = () => {
   const [attachment, setAttachment] = useState(null);
 
   useEffect(() => {
+    console.log('Current User:', currentUser); // Debugging step
     if (currentUser?.email) {
       setSender(currentUser.email);
     }
   }, [currentUser]);
+  
 
 
   const handleSendEmail = async () => {
@@ -100,7 +102,7 @@ const CustomEmail = () => {
           placeholder="Sender's Email"
           value={sender}
           onChange={(e) => setSender(e.target.value)}
-          disabled
+          // disabled
           className="w-full px-3 py-2 border border-orange-300 rounded-md focus:outline-none focus:ring focus:ring-orange-200"
         />
       </div>

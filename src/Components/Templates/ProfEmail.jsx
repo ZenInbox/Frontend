@@ -61,6 +61,8 @@ const ProfEmail = () => {
     ZenInbox is a custom Email Sender developed by our Team. It is a website that allows users to compose *only the body* of emails based on prompts provided by the user. 
     
     You are only allowed to generate the body content in plain text. 
+
+    You should answer in a professional way
     
     Do not include:
     - Greetings (e.g., Dear [Name], Hello, etc.)
@@ -168,7 +170,7 @@ const ProfEmail = () => {
             placeholder="Sender's Email"
             value={sender}
             onChange={(e) => setSender(e.target.value)}
-            disabled
+            // disabled
             className="w-full px-3 py-2 border border-primary rounded-md focus:outline-none focus:border-2 focus:border-primary"
           />
         </div>

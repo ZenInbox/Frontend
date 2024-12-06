@@ -184,7 +184,7 @@ const MarkEmail = () => {
             placeholder="Sender's Email"
             value={sender}
             onChange={(e) => setSender(e.target.value)}
-            disabled
+            // disabled
             className="w-full px-3 py-2 border border-primary rounded-md focus:outline-none focus:border-2 focus:border-primary"
           />
         </div>
