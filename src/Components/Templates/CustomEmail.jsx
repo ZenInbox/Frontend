@@ -1,4 +1,4 @@
-import React, { useState   } from 'react';
+import React, { useState ,useEffect  } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FaTrashAlt } from 'react-icons/fa';
 import axios from "axios";
