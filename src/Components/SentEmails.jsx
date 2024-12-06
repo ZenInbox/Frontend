@@ -69,8 +69,8 @@ export default function SentEmails() {
             <p className="text-gray-600 line-clamp-2">
               {email.body 
                 ? email.body
-                    .replace(/<br\s*\/?>/g, ' ')        // Remove <br> tags
-                    .replace(/<\/?[^>]+(>|$)/g, "")      // Remove all HTML tags
+                    .replace(/<br\s*\/?>/g, ' ')       
+                    .replace(/<\/?[^>]+(>|$)/g, "")    
                     .replace(/\n/g, ' ')                
                 : 'No preview available'}
             </p>
@@ -89,9 +89,6 @@ export default function SentEmails() {
               &times;
             </button>
             <h2 className="text-2xl font-bold mb-2">{selectedEmail.subject}</h2>
-            <p className="text-sm text-gray-500 mb-4">
-              From: {selectedEmail.sender}
-            </p>
             <p className="text-sm text-gray-500 mb-4">
               To: {selectedEmail.recipients.join(", ")}
             </p>
