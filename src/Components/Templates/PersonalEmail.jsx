@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef , useEffect} from 'react';
 import Webcam from 'react-webcam';
 import { FaTrashAlt } from 'react-icons/fa';
 import axios from 'axios';
@@ -8,7 +8,7 @@ import { useAuth } from '../../Context/AuthContext';
 
 const PersonalEmail = () => {
   const { currentUser } = useAuth();
-  const [sender, setSender] = useState(currentUser.email);
+  const [sender, setSender] = useState("");
   const [subject, setSubject] = useState('');
   const [salutation, setSalutation] = useState('Hi');
   const [closing, setClosing] = useState('Warm regards,');
@@ -28,6 +28,12 @@ const PersonalEmail = () => {
   const webcamRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const recordedChunks = useRef([]);
+
+  useEffect(() => {
+    if (currentUser?.email) {
+      setSender(currentUser.email);
+    }
+  }, [currentUser]);
 
   const generate = async () => {
     if (!question.trim()) {

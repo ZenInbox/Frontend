@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FaTrashAlt } from 'react-icons/fa';
 import axios from 'axios';
@@ -8,7 +8,7 @@ import { useAuth } from '../../Context/AuthContext';
 
 const FollowUpEmail = () => {
   const { currentUser } = useAuth();
-  const [sender, setSender] = useState(currentUser.email);
+  const [sender, setSender] = useState("");
   const [subject, setSubject] = useState('');
   const [salutation, setSalutation] = useState('Greetings');
   const [closing, setClosing] = useState('Looking forward to your reply.');
@@ -24,6 +24,11 @@ const FollowUpEmail = () => {
   const [generatedContent, setGeneratedContent] = useState('');
   const [loading, setLoading] = useState(false);
   
+  useEffect(() => {
+    if (currentUser?.email) {
+      setSender(currentUser.email);
+    }
+  }, [currentUser]);
 
   const handleAddRecipient = () => {
     if (newRecipient.trim()) {

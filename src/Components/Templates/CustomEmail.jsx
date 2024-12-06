@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState   } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FaTrashAlt } from 'react-icons/fa';
 import axios from "axios";
@@ -8,12 +8,18 @@ import { useAuth } from '../../Context/AuthContext';
 const CustomEmail = () => {
 
   const { currentUser } = useAuth();
-  const [sender, setSender] = useState(currentUser.email);
+  const [sender, setSender] = useState("");
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
   const [recipients, setRecipients] = useState([]);
   const [newRecipient, setNewRecipient] = useState('');
   const [attachment, setAttachment] = useState(null);
+
+  useEffect(() => {
+    if (currentUser?.email) {
+      setSender(currentUser.email);
+    }
+  }, [currentUser]);
 
 
   const handleSendEmail = async () => {

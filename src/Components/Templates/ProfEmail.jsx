@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FaTrashAlt } from 'react-icons/fa';
 import axios from 'axios';
@@ -7,7 +7,7 @@ import { useAuth } from '../../Context/AuthContext';
 
 const ProfEmail = () => {
   const { currentUser } = useAuth();
-  const [sender, setSender] = useState(currentUser.email);
+  const [sender, setSender] = useState("");
   const [subject, setSubject] = useState('');
   const [salutation, setSalutation] = useState('Dear');
   const [closing, setClosing] = useState('Best regards,');
@@ -20,6 +20,12 @@ const ProfEmail = () => {
   const [question, setQuestion] = useState("");
   const [generatedContent, setGeneratedContent] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (currentUser?.email) {
+      setSender(currentUser.email);
+    }
+  }, [currentUser]);
 
   const handleAddRecipient = () => {
     if (newRecipient.trim()) {
