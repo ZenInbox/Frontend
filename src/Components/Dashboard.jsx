@@ -22,10 +22,11 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    if (currentUser && initialRedirect) {
+    if (!currentUser) {
+      navigate("/"); 
+    } else if (currentUser && initialRedirect) {
       navigate("/dashboard");
-     
-      setInitialRedirect(false); 
+      setInitialRedirect(false);
     }
   }, [currentUser, initialRedirect, navigate]);
 
