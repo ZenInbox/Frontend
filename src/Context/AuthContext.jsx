@@ -1,7 +1,14 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
-import { auth } from '../firebase';
-import { signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from 'firebase/auth';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import axios from "axios";
+import { auth } from "../firebase";
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AuthContext = createContext();
 
@@ -11,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const baseURL = import.meta.env.VITE_BACKEND_URL
+  const baseURL = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -32,29 +39,38 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.post(`${baseURL}/api/user/fetchuser`, { uid });
       setCurrentUser(response.data.user);
-      console.log(response.data.user)
+      console.log("Fetched user:", response.data.user);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching user:", error);
     }
   };
 
   const provider = new GoogleAuthProvider();
-  provider.addScope('https://www.googleapis.com/auth/gmail.send');
-  provider.addScope('openid');
-  provider.addScope('https://www.googleapis.com/auth/userinfo.email');
-  provider.addScope('https://www.googleapis.com/auth/userinfo.profile');
+  provider.addScope("https://www.googleapis.com/auth/gmail.send");
+  provider.addScope("openid");
+  provider.addScope("https://www.googleapis.com/auth/userinfo.email");
+  provider.addScope("https://www.googleapis.com/auth/userinfo.profile");
 
   const loginWithGoogle = async () => {
     try {
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
+
+      if (!user) {
+        throw new Error("Google authentication failed.");
+      }
+
       const credential = GoogleAuthProvider.credentialFromResult(userCredential);
-      const accessToken = credential.accessToken;
+      const accessToken = credential?.accessToken;
+      const idToken = await user.getIdToken(true);
 
-      const idToken = await user.getIdToken(true); 
+      if (!accessToken || !idToken) {
+        throw new Error("Failed to retrieve tokens from Google.");
+      }
 
-      localStorage.setItem('gmailAccessToken', accessToken);
-      localStorage.setItem('gmailIdToken', idToken); 
+      const expiryTime = Date.now() + 3600 * 1000;
+      localStorage.setItem("gmailAccessToken", accessToken);
+      localStorage.setItem("tokenExpiryTime", expiryTime.toString());
 
       console.log( {
         name: user.displayName,
@@ -72,19 +88,36 @@ export const AuthProvider = ({ children }) => {
       }
 
       await fetchUser(user.uid);
-      
-      console.log('User signed in and access token retrieved:', accessToken);
-      console.log('User signed in and ID token retrieved:', idToken);
+
+      console.log("User signed in successfully.");
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error("Login failed:", error.message || error);
+      alert("An error occurred during login. Please try again.");
     }
   };
+
+  useEffect(() => {
+    const checkTokenExpiry = () => {
+      const expiryTime = localStorage.getItem("tokenExpiryTime");
+      if (expiryTime && Date.now() >= parseInt(expiryTime, 10)) {
+        logout();
+        toast.error("Your session has expired. Please log in again.");
+      }
+    };
+
+    const interval = setInterval(checkTokenExpiry, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const logout = async () => {
     try {
       await signOut(auth);
+      localStorage.removeItem("gmailAccessToken");
+      localStorage.removeItem("gmailIdToken");
+      localStorage.removeItem("tokenExpiryTime");
       setCurrentUser(null);
       setIsLoggedIn(false);
+      console.log("Logged out successfully.");
     } catch (error) {
       console.error("Logout failed:", error);
     }
@@ -105,8 +138,6 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-
 
 
 

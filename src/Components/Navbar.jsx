@@ -10,14 +10,14 @@ export default function Navbar() {
   const checkboxRef = useRef(null);
   const homeSectionRef = useRef(null);
 
-  useEffect(() => {
+  // useEffect(() => {
    
-    if (homeSectionRef.current) {
-      homeSectionRef.current.focus();
-      homeSectionRef.current.classList.add('focus:ring-1', 'focus:ring-red-300','focus:bg-hoverColor');
-      homeSectionRef.current.dispatchEvent(new FocusEvent('focus'))
-    }
-  }, []);
+  //   if (homeSectionRef.current) {
+  //     homeSectionRef.current.focus();
+  //     homeSectionRef.current.classList.add('focus:ring-1', 'focus:ring-red-300','focus:bg-hoverColor');
+  //     homeSectionRef.current.dispatchEvent(new FocusEvent('focus'))
+  //   }
+  // }, []);
 
   const handleLogin = async () => {
     await loginWithGoogle();
