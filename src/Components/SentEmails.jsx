@@ -20,7 +20,12 @@ export default function SentEmails() {
         { senderEmail: userEmail, page: page }
       );
 
-      setEmails((prevEmails) => [...prevEmails, ...response.data]);
+      setEmails((emails) => [
+        ...emails,
+        ...response.data.filter(
+          (a) => !emails.some((eml) => eml._id === a._id)
+        ),
+      ]);
 
       if (response.data.length === 0) {
         setHasMore(false);
