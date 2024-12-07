@@ -22,7 +22,9 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      
       if (user) {
+        console.log(user.uid)
         setIsLoggedIn(true);
         fetchUser(user.uid);
       } else {
@@ -69,6 +71,12 @@ export const AuthProvider = ({ children }) => {
       const expiryTime = Date.now() + 3600 * 1000;
       localStorage.setItem("gmailAccessToken", accessToken);
       localStorage.setItem("tokenExpiryTime", expiryTime.toString());
+
+      console.log( {
+        name: user.displayName,
+        email: user.email,
+        uid: user.uid,
+      })
 
       const response = await axios.post(`${baseURL}/api/user/fetchuser`, { uid: user.uid });
       if (!response.data.exists) {
