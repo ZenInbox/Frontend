@@ -69,7 +69,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
             <span>Documentation</span> 
           </Link>
           <Link
-            to="/dashboard"
+            to="/dashboard/help"
             className="p-4  rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">
             <FaQuestionCircle className="text-xl" /> 
             <span>Help</span> 

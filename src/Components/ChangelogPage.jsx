@@ -2,8 +2,8 @@ import React from "react";
 
 const ChangelogPage = () => {
   return (
-    <>
-      <div className="px-4 pt-10 pb-16 sm:px-6 md:px-8">
+    <> 
+      <div className="px-4 pt-10 pb-16 sm:px-6 md:px-8 bg-gradient-to-r from-orange-100 via-yellow-100 to-orange-200">
         <h1 className="text-3xl mb-1 text-left font-bold leading-none md:text-4xl lg:text-5xl pb-2 bg-gradient-to-bl from-pink-400 via-orange-400 to-pink-600 bg-clip-text text-transparent">
           {" "}
           Changelog{" "}

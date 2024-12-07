@@ -16,6 +16,7 @@ import SentEmails from './Components/SentEmails';
 import MyDrafts from './Components/MyDrafts';
 import MyActivity from './Components/MyActivity';
 import ChangelogPage from './Components/ChangelogPage';
+import Help from "./Components/Help"
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="/dashboard/drafts" element = {<MyDrafts/>}/>
             <Route path="/dashboard/activity" element = {<MyActivity/>}/>
             <Route path="/dashboard/changelog" element = {<ChangelogPage/>}/>
+            <Route path="/dashboard/help" element = {<Help/>}/>
           </Route>
           <Route path="/dashboard/template/custom" element={<CustomEmail />} />
           <Route path="/dashboard/template/prof" element={<ProfEmail />} />
