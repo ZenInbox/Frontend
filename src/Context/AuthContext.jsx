@@ -15,7 +15,9 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      
       if (user) {
+        console.log(user.uid)
         setIsLoggedIn(true);
         fetchUser(user.uid);
       } else {
@@ -53,6 +55,12 @@ export const AuthProvider = ({ children }) => {
 
       localStorage.setItem('gmailAccessToken', accessToken);
       localStorage.setItem('gmailIdToken', idToken); 
+
+      console.log( {
+        name: user.displayName,
+        email: user.email,
+        uid: user.uid,
+      })
 
       const response = await axios.post(`${baseURL}/api/user/fetchuser`, { uid: user.uid });
       if (!response.data.exists) {
