@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import BackgroundDots from './Utils/BackgroundDots';
 import About from './About';
 import Contact from './Contact';
-import Features from './Features';
+import Team from './Team';
+import Footer from './Footer';
 
 export default function Home() {
   const { loginWithGoogle, logout, isLoggedIn, currentUser } = useAuth();
@@ -54,11 +55,14 @@ export default function Home() {
       </div>
 
       {/* About Section */}
+      
       <About />
+
+      <Team />
 
       <Contact />
 
-      <Features />
+      <Footer />
     </div>
 
 
