@@ -41,15 +41,15 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
             <span>My Drafts</span> 
           </Link>
 
-          <Link
+          {/* <Link
             to="/dashboard/template/scheduled"
             className="p-4 rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">
             <FaCalendarAlt className="text-xl" /> 
             <span>Scheduled Emails</span> 
-          </Link>
+          </Link> */}
 
           <Link
-            to="/dashboard/template/activity"
+            to="/dashboard/activity"
             className="p-4 rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">
             <FaHistory className="text-xl" /> 
             <span>My Activity</span> 

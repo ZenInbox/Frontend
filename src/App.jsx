@@ -14,6 +14,7 @@ import PersonalEmail from './Components/Templates/PersonalEmail';
 import Template from './Components/Template';
 import SentEmails from './Components/SentEmails';
 import MyDrafts from './Components/MyDrafts';
+import MyActivity from './Components/MyActivity';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/dashboard/template" element={<Template />} />
             <Route path="/dashboard/sent" element = {<SentEmails/>}/>
             <Route path="/dashboard/drafts" element = {<MyDrafts/>}/>
+            <Route path="/dashboard/activity" element = {<MyActivity/>}/>
           </Route>
           <Route path="/dashboard/template/custom" element={<CustomEmail />} />
           <Route path="/dashboard/template/prof" element={<ProfEmail />} />

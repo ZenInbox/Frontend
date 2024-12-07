@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../Context/AuthContext";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { io } from "socket.io-client";
 
 export default function MyDrafts() {
   const [drafts, setDrafts] = useState([]);
@@ -36,18 +37,6 @@ export default function MyDrafts() {
     }
   };
 
-  useEffect(() => {
-    if (currentUser?.email) {
-      fetchDrafts();
-    }
-  }, [currentUser, page]); 
-
-  const loadMoreDrafts = () => {
-    if (hasMore) {
-      setPage((prevPage) => prevPage + 1); 
-    }
-  };
-
   const handleSendDraft = async (draftId) => {
     try {
       setLoading(true);
@@ -73,6 +62,19 @@ export default function MyDrafts() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (currentUser?.email) {
+      fetchDrafts();
+    }
+  }, [currentUser, page,handleSendDraft]); 
+
+  const loadMoreDrafts = () => {
+    if (hasMore) {
+      setPage((prevPage) => prevPage + 1); 
+    }
+  };
+
 
   return (
     <div className="p-6 bg-hoverColor min-h-screen">
