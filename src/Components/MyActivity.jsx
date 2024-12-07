@@ -20,6 +20,12 @@ export default function MyActivity() {
         { senderEmail }
       );
       setActivities(response.data);
+      setActivities((activities) => [
+        ...activities,
+        ...response.data.filter(
+          (a) => !activities.some((activity) => activity._id === a._id)
+        ),
+      ])
     } catch (error) {
       console.error("Error fetching email activities:", error);
     } finally {
