@@ -4,6 +4,8 @@ import { FaTrashAlt } from 'react-icons/fa';
 import axios from 'axios';
 import upload from '../Utils/Upload';
 import { useAuth } from '../../Context/AuthContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const PersonalEmail = () => {
@@ -37,7 +39,7 @@ const PersonalEmail = () => {
 
   const generate = async () => {
     if (!question.trim()) {
-      alert("Please enter a question or prompt.");
+      toast.success("Please enter a question or prompt.");
       return;
     }
   
@@ -68,11 +70,11 @@ const PersonalEmail = () => {
         setBody(newAnswer);
       } else {
         console.log("Unexpected response structure:", response.data);
-        alert("Failed to generate content.");
+        toast.error("Failed to generate content.");
       }
     } catch (error) {
       console.log(error);
-      alert("Error generating content. Please try again.");
+      toast.error("Error generating content. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -158,7 +160,7 @@ const PersonalEmail = () => {
   const handleSendEmail = async () => {
     try {
       if (!sender || !recipients.length || !subject || !body) {
-        alert("Please fill in all the fields (Sender, Recipients, Subject, and Body).");
+        toast.error("Please fill in all the fields (Sender, Recipients, Subject, and Body).");
         return; 
       }
       let attachmentURL = null;
@@ -188,7 +190,7 @@ const PersonalEmail = () => {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/email/send-email`, emailData);
   
       if (response.status === 200) {
-        alert('Email sent successfully!');
+        toast.success('Email sent successfully!');
         setSender(currentUser.email);
         setRecipients([]);
         setRecordedVideo(null);
@@ -201,18 +203,18 @@ const PersonalEmail = () => {
         setRecieverName("")
         setSignature("")
       } else {
-        alert('Failed to send email.');
+        toast.error('Failed to send email.');
       }
     } catch (error) {
       console.error('Error uploading file or sending email:', error);
-      alert('Error occurred while sending email.');
+      toast.error('Error occurred while sending email.');
     }
   };
 
   const handleSaveDraft= async () => {
     try {
       if (!sender || !recipients.length || !subject || !body) {
-        alert("Please fill in all the fields (Sender, Recipients, Subject, and Body).");
+        toast.error("Please fill in all the fields (Sender, Recipients, Subject, and Body).");
         return; 
       }
       let attachmentURL = null;
@@ -242,7 +244,7 @@ const PersonalEmail = () => {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/email/save-draft`, emailData);
   
       if (response.status === 200) {
-        alert('Email sent successfully!');
+        toast.success('Email sent successfully!');
         setSender(currentUser.email);
         setRecipients([]);
         setRecordedVideo(null);
@@ -255,17 +257,18 @@ const PersonalEmail = () => {
         setRecieverName("")
         setSignature("")
       } else {
-        alert('Failed to send email.');
+        toast.error('Failed to send email.');
       }
     } catch (error) {
-      console.error('Error uploading file or sending email:', error);
-      alert('Error occurred while sending email.');
+      toast.error('Error uploading file or sending email:', error);
+      ('Error occurred while sending email.');
     }
   };
 
 
   return (
     <div className="w-[80%] mx-auto p-6 mt-[120px] mb-12 rounded-lg">
+      <ToastContainer/>
       <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-bl from-pink-400 via-orange-400 to-pink-600 bg-clip-text text-transparent">Personal Email</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
@@ -415,7 +418,7 @@ const PersonalEmail = () => {
             if (emailRegex.test(newRecipient)) {
               handleAddRecipient();
             } else {
-              alert('Please enter a valid email address.');
+              toast.error('Please enter a valid email address.');
             }
           }}
           className="w-full py-2 mt-2 bg-primary text-white font-semibold rounded-md shadow hover:bg-hoverButtonColor focus:outline-none"

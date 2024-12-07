@@ -6,6 +6,8 @@ import About from './About';
 import Contact from './Contact';
 import Team from './Team';
 import Footer from './Footer';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
   const { loginWithGoogle, logout, isLoggedIn, currentUser } = useAuth();
@@ -21,16 +23,19 @@ export default function Home() {
 
   const handleLogin = async () => {
     await loginWithGoogle();
+    toast.success("Logged in Successfully!!!")
     navigate("/dashboard");
   };
+  
 
   return (
     <> 
+    <ToastContainer/>
 
     <div id="home" className="relative h-screen bg-gradient-to-b from-white to-hoverColor">
       {/* Background Dots */}
       <BackgroundDots className="absolute inset-0 w-full h-full z-0" />
-
+      <ToastContainer/>
       {/* Hero Section */}
       <div className="relative h-screen grid grid-cols-1 lg:grid-cols-12 items-center justify-center text-center px-4 rounded-lg">
         <div className="z-10 col-span-1 lg:col-span-8 lg:col-start-3 mt-24 sm:m-6">

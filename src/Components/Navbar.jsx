@@ -1,6 +1,8 @@
 import { useAuth } from "../Context/AuthContext";
 import React, {useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Navbar() {
   const { loginWithGoogle, logout, isLoggedIn, currentUser } = useAuth();
@@ -20,10 +22,12 @@ export default function Navbar() {
   const handleLogin = async () => {
     await loginWithGoogle();
     navigate("/dashboard");
+    toast.success("Logged in Successfully!!!")
   };
 
   const LogMeOut = async () => {
     await logout();
+    toast.success("Logged out Successfully!!!")
     navigate("/");
   };
 
@@ -32,7 +36,7 @@ export default function Navbar() {
     if (checkboxRef.current) {
       checkboxRef.current.checked = false;
     }
-    // Prevent default link behavior and scroll to the section
+
     e.preventDefault(); 
     const section = document.getElementById(sectionId);
     if (section) {
