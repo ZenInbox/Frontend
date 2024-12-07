@@ -5,7 +5,7 @@ import About from './Components/About';
 import Dashboard from './Components/Dashboard';
 import Navbar from "./Components/Navbar";
 import Contact from './Components/Contact';
-import Features from './Components/Features';
+// import Features from './Components/Features';
 import CustomEmail from './Components/Templates/CustomEmail';
 import ProfEmail from './Components/Templates/ProfEmail';
 import MarkEmail from './Components/Templates/MarkEmail';
@@ -31,7 +31,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/features" element={<Features />} />
+          {/* <Route path="/features" element={<Features />} /> */}
           <Route path="/dashboard" element={<Dashboard />} >
             <Route index element={<Template />} /> 
             <Route path="/dashboard/template" element={<Template />} />
