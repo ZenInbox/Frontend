@@ -5,9 +5,11 @@ import BackgroundDots from './Utils/BackgroundDots';
 import About from './About';
 import Contact from './Contact';
 import Team from './Team';
+import Features from "./Features";
 import Footer from './Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function Home() {
   const { loginWithGoogle, logout, isLoggedIn, currentUser } = useAuth();
@@ -62,6 +64,8 @@ export default function Home() {
       {/* About Section */}
       
       <About />
+
+      <Features />
 
       <Team />
 

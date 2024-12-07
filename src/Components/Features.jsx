@@ -1,10 +1,10 @@
 import React from 'react';
 import BackgroundDots from './Utils/BackgroundDots';
 
-export default function About() {
+export default function Features() {
   return (
     
-    <section id="about" className="overflow-hidden pt-28 md:pt-32 xl:pt-36 bg-hoverColor" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="2">
+    <section id="features" className="overflow-hidden pt-28 md:pt-32 xl:pt-36 bg-hoverColor" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="2">
       
       <div className="max-w-[1222px] mx-auto px-4 sm:px-8 xl:px-0">
         

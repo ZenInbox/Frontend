@@ -10,14 +10,14 @@ export default function Navbar() {
   const checkboxRef = useRef(null);
   const homeSectionRef = useRef(null);
 
-  // useEffect(() => {
+  useEffect(() => {
    
-  //   if (homeSectionRef.current) {
-  //     homeSectionRef.current.focus();
-  //     homeSectionRef.current.classList.add('focus:ring-1', 'focus:ring-primary','focus:bg-hoverColor');
-  //     homeSectionRef.current.dispatchEvent(new FocusEvent('focus'))
-  //   }
-  // }, []);
+    if (homeSectionRef.current) {
+      homeSectionRef.current.focus();
+      homeSectionRef.current.classList.add('focus:ring-1', 'focus:ring-red-300','focus:bg-hoverColor');
+      homeSectionRef.current.dispatchEvent(new FocusEvent('focus'))
+    }
+  }, []);
 
   const handleLogin = async () => {
     await loginWithGoogle();
@@ -74,6 +74,11 @@ export default function Navbar() {
           <li className="lg:mr-4 bg-transparent">
             <Link className="rounded-xl px-4 py-2 text-primary transition hover:bg-hoverColor focus:bg-hoverColor focus:ring-1 focus:ring-primary  font-bold text-sm" to="/" onClick={(e) => handleLinkClick(e, "team")}>Team</Link>
           </li>
+
+          <li className="lg:mr-4 bg-transparent">
+            <Link className="rounded-xl px-4 py-2 text-primary transition hover:bg-hoverColor focus:bg-hoverColor focus:ring-1 focus:ring-primary  font-bold text-sm" to="/" onClick={(e) => handleLinkClick(e, "features")}>Features</Link>
+          </li>
+
           <li className="lg:mr-4 bg-transparent">
             <Link className="rounded-xl px-4 py-2 text-primary transition hover:bg-hoverColor focus:bg-hoverColor focus:ring-1 focus:ring-primary  font-bold text-sm" to="/" onClick={(e) => handleLinkClick(e, "contact")}>Contact</Link>
           </li>
