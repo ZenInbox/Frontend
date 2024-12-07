@@ -13,6 +13,7 @@ import FollowUpEmail from './Components/Templates/FollowUpEmail';
 import PersonalEmail from './Components/Templates/PersonalEmail';
 import Template from './Components/Template';
 import SentEmails from './Components/SentEmails';
+import MyDrafts from './Components/MyDrafts';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route index element={<Template />} /> 
             <Route path="/dashboard/template" element={<Template />} />
             <Route path="/dashboard/sent" element = {<SentEmails/>}/>
+            <Route path="/dashboard/drafts" element = {<MyDrafts/>}/>
           </Route>
           <Route path="/dashboard/template/custom" element={<CustomEmail />} />
           <Route path="/dashboard/template/prof" element={<ProfEmail />} />

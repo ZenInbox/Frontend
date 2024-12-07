@@ -35,7 +35,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
           </Link>
 
           <Link
-            to="/dashboard/template/drafts"
+            to="/dashboard/drafts"
             className="p-4 rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">
             <FaFileAlt className="text-xl" /> 
             <span>My Drafts</span> 

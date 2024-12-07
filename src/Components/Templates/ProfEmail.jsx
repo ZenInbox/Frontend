@@ -155,6 +155,56 @@ const ProfEmail = () => {
     }
   };
 
+  const handleSaveDraft = async () => {
+    try {
+      let attachmentURL = null;
+      if (attachment) {
+        attachmentURL = await upload(attachment, sender);
+      }
+
+      const formattedBody = `
+      ${salutation ? salutation + ',<br><br>' : ''}
+
+      ${body.replace(/\n/g, '<br>')}<br><br>
+
+      ${closing ? closing + '<br><br>' : ''}
+      ${signature ? signature + '<br>' : ''}
+      ${designation ? designation + '<br>' : ''}
+      `;
+
+      const emailData = {
+        sender,
+        recipients,
+        subject,
+        body: formattedBody,
+        attachments: attachmentURL ? [attachmentURL] : [], 
+        accessToken: localStorage.getItem("gmailAccessToken")
+      };
+  
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/email/send-email`, emailData);
+  
+      if (response.status === 200) {
+        alert('Email saved to draft successfully!');
+        setSender(currentUser.email);
+        setRecipients([]);
+        setAttachment(null);
+        setBody("");
+        setSubject("")
+        setSalutation("Dear")
+        setClosing('Best regards,');
+        setQuestion("")
+        setGeneratedContent("")
+        setDesignation("")
+        setSignature("")
+      } else {
+        alert('Failed to save email to draft.');
+      }
+    } catch (error) {
+      console.error('Error uploading file or sending email:', error);
+      alert('Error occurred while sending email.');
+    }
+  };
+
   return (
     <div className="w-[80%] mx-auto p-6 mt-[120px] mb-12 rounded-lg">
       <h2 className="text-4xl font-bold mb-12 text-center">Professional Email</h2>
@@ -168,7 +218,7 @@ const ProfEmail = () => {
             placeholder="Sender's Email"
             value={sender}
             onChange={(e) => setSender(e.target.value)}
-            disabled
+            // disabled
             className="w-full px-3 py-2 border border-primary rounded-md focus:outline-none focus:border-2 focus:border-primary"
           />
         </div>
@@ -353,12 +403,27 @@ const ProfEmail = () => {
         </div>
       </div>
 
+      <div className="flex gap-2">
       <button
-      onClick={handleSendEmail}
-        className="w-full py-2 mt-2 bg-primary text-white font-semibold rounded-md shadow hover:bg-hoverButtonColor focus:outline-none"
+        onClick={handleSendEmail}
+        className="w-full py-2 mt-4 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700 focus:outline-none"
       >
         Send Email
       </button>
+      <button
+        onClick={handleSaveDraft}
+        className="w-full py-2 mt-4 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700 focus:outline-none"
+      >
+        Save as Draft
+      </button>
+      <button
+        
+        className="w-full py-2 mt-4 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700 focus:outline-none"
+      >
+        Schedule Email
+      </button>
+      </div>
+
     </div>
   );
 };

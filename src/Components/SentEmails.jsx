@@ -57,7 +57,7 @@ export default function SentEmails() {
         {emails.map((email, i) => (
           <div
             key={i}
-            className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow cursor-pointer hover:bg-gray-50"
+            className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow cursor-pointer hover:bg-pink-50  hover:scale-105"
             onClick={() => setSelectedEmail(email)}
           >
             <h2 className="text-xl font-semibold text-hoverButtonColor mb-2">{email.subject}</h2>

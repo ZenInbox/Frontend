@@ -16,6 +16,7 @@ const CustomEmail = () => {
   const [attachment, setAttachment] = useState(null);
 
   useEffect(() => {
+    console.log('Current User:', currentUser);
     if (currentUser?.email) {
       setSender(currentUser.email);
     }
@@ -55,6 +56,38 @@ const CustomEmail = () => {
     }
   };
 
+  const handleSaveDraft = async () => {
+    try {
+      let attachmentURL = null;
+      if (attachment) {
+        attachmentURL = await upload(attachment, sender);
+      }
+      const emailData = {
+        sender,
+        recipients,
+        subject,
+        body,
+        attachments: attachmentURL ? [attachmentURL] : [], 
+        accessToken: localStorage.getItem("gmailAccessToken")
+      };
+  
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/email/save-draft`, emailData);
+  
+      if (response.status === 200) {
+        alert('Email saved to draft successfully!');
+        setSender(currentUser.email);
+        setRecipients([]);
+        setAttachment(null);
+        setBody("");
+        setSubject("")
+      } else {
+        alert('Failed to save email to draft.');
+      }
+    } catch (error) {
+      console.error('Error uploading file or sending email:', error);
+      alert('Error occurred while sending email.');
+    }
+  };
 
 
   const handleAddRecipient = () => {
@@ -100,7 +133,7 @@ const CustomEmail = () => {
           placeholder="Sender's Email"
           value={sender}
           onChange={(e) => setSender(e.target.value)}
-          disabled
+          // disabled
           className="w-full px-3 py-2 border border-orange-300 rounded-md focus:outline-none focus:ring focus:ring-orange-200"
         />
       </div>
@@ -185,13 +218,28 @@ const CustomEmail = () => {
           {generatePreview()}
         </div>
       </div>
-
+      
+      <div className="flex gap-2">
       <button
         onClick={handleSendEmail}
         className="w-full py-2 mt-4 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700 focus:outline-none"
       >
         Send Email
       </button>
+      <button
+        onClick={handleSaveDraft}
+        className="w-full py-2 mt-4 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700 focus:outline-none"
+      >
+        Save as Draft
+      </button>
+      <button
+        
+        className="w-full py-2 mt-4 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700 focus:outline-none"
+      >
+        Schedule Email
+      </button>
+      </div>
+
     </div>
   );
 };
