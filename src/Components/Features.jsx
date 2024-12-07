@@ -27,7 +27,7 @@ export default function Features() {
           <div className="features-row-border bg-gradient-to-r from-hoverColor via-pink-400 to-hoverColor rotate-90 w-1/2 h-[1px] absolute top-1/2 right-1/2 -translate-y-1/2 lg:right-[8.3%] hidden lg:block"></div>
 
           <div className="flex flex-wrap justify-center">
-            <div className="w-full sm:w-1/2 lg:w-1/3 hover:bg-gradient-to-tl from-orange-300 via-orange-100">
+            <div className="w-full sm:w-1/2 lg:w-1/3 hover:bg-gradient-to-tl from-orange-300 via-orange-100 cursor-pointer">
               <div className="relative rounded-lg lg:rounded-none group overflow-hidden text-center py-8 sm:py-10 xl:py-15 px-4 lg:px-8 xl:px-13">
                 <span className="group-hover:opacity-100 opacity-0 features-bg absolute w-full h-full left-0 top-0 -z-1"></span>
                 <span className="icon-border relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto">
@@ -42,7 +42,7 @@ export default function Features() {
               </div>
             </div>
 
-            <div className="w-full sm:w-1/2 lg:w-1/3 hover:bg-gradient-to-t from-orange-300 via-orange-100">
+            <div className="w-full sm:w-1/2 lg:w-1/3 hover:bg-gradient-to-t from-orange-300 via-orange-100 cursor-pointer">
               <div className="group rounded-lg lg:rounded-none relative overflow-hidden text-center py-8 sm:py-10 xl:py-15 px-4 lg:px-8 xl:px-13">
                 <span className="group-hover:opacity-100 opacity-0 features-bg absolute w-full h-full left-0 top-0 -z-1"></span>
                 <span className="icon-border relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto">
@@ -75,7 +75,7 @@ export default function Features() {
           <div className="features-row-border w-full h-[1px] bg-gradient-to-l from-hoverColor via-pink-400 to-hoverColor"></div>
 
           <div className="flex flex-wrap justify-center">
-            <div className="w-full sm:w-1/2 lg:w-1/3 hover:bg-gradient-to-bl from-orange-300 via-orange-100">
+            <div className="w-full sm:w-1/2 lg:w-1/3 hover:bg-gradient-to-bl from-orange-300 via-orange-100 cursor-pointer">
               <div className="group rounded-lg lg:rounded-none relative overflow-hidden text-center py-8 sm:py-10 xl:py-15 px-4 lg:px-8 xl:px-13">
                 <span className="group-hover:opacity-100 opacity-0 features-bg absolute w-full h-full left-0 top-0 -z-1 rotate-180"></span>
                 <span className="icon-border relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto">
@@ -90,7 +90,7 @@ export default function Features() {
               </div>
             </div>
 
-            <div className="w-full sm:w-1/2 lg:w-1/3 hover:bg-gradient-to-b from-orange-300 via-orange-100">
+            <div className="w-full sm:w-1/2 lg:w-1/3 hover:bg-gradient-to-b from-orange-300 via-orange-100 cursor-pointer">
               <div className="group rounded-lg lg:rounded-none relative overflow-hidden text-center py-8 sm:py-10 xl:py-15 px-4 lg:px-8 xl:px-13">
                 <span className="group-hover:opacity-100 opacity-0 features-bg absolute w-full h-full left-0 top-0 -z-1 rotate-180"></span>
                 <span className="icon-border relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto">
@@ -105,7 +105,7 @@ export default function Features() {
               </div>
             </div>
 
-            <div className="w-full sm:w-1/2 lg:w-1/3 hover:bg-gradient-to-br from-orange-300 via-orange-100">
+            <div className="w-full sm:w-1/2 lg:w-1/3 hover:bg-gradient-to-br from-orange-300 via-orange-100 cursor-pointer">
               <div className="group rounded-lg lg:rounded-none relative overflow-hidden text-center py-8 sm:py-10 xl:py-15 px-4 lg:px-8 xl:px-13">
                 <span className="group-hover:opacity-100 opacity-0 features-bg absolute w-full h-full left-0 top-0 -z-1 rotate-180"></span>
                 <span className="icon-border relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto">
