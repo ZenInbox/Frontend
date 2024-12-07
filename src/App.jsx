@@ -17,16 +17,21 @@ import MyDrafts from './Components/MyDrafts';
 import MyActivity from './Components/MyActivity';
 import ChangelogPage from './Components/ChangelogPage';
 import Help from "./Components/Help"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+  
   return (
     <Router>
       <div className="App">
         <Navbar />
+        <ToastContainer/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+
           <Route path="/team" element={<Team />} />
           <Route path="/dashboard" element={<Dashboard />} >
             <Route index element={<Template />} /> 

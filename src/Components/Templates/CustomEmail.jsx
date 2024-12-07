@@ -4,6 +4,8 @@ import { FaTrashAlt } from 'react-icons/fa';
 import axios from "axios";
 import upload from '../Utils/Upload';
 import { useAuth } from '../../Context/AuthContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CustomEmail = () => {
 
@@ -18,8 +20,6 @@ const CustomEmail = () => {
   const [loadingDraft, setLoadingDraft] = useState(false);
 
   useEffect(() => {
-    console.log('Current User:', currentUser);
-
     if (currentUser?.email) {
       setSender(currentUser.email);
     }
@@ -30,7 +30,7 @@ const CustomEmail = () => {
   const handleSendEmail = async () => {
     try {
       if (!sender || !recipients.length || !subject || !body) {
-        alert("Please fill in all the fields (Sender, Recipients, Subject, and Body).");
+        toast.error("Please fill in all the fields (Sender, Recipients, Subject, and Body).");
         return; 
       }
       setLoading(true);
@@ -50,18 +50,18 @@ const CustomEmail = () => {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/email/send-email`, emailData);
   
       if (response.status === 200) {
-        alert('Email sent successfully!');
+        toast.success('Email sent successfully!');
         setSender(currentUser.email);
         setRecipients([]);
         setAttachment(null);
         setBody("");
         setSubject("")
       } else {
-        alert('Failed to send email.');
+        toast.error('Failed to send email.');
       }
     } catch (error) {
       console.error('Error uploading file or sending email:', error);
-      alert('Error occurred while sending email.');
+      toast.error('Error occurred while sending email.');
     }
     finally {
       setLoading(false);  
@@ -71,7 +71,7 @@ const CustomEmail = () => {
   const handleSaveDraft = async () => {
     try {
       if (!sender || !recipients.length || !subject || !body) {
-        alert("Please fill in all the fields (Sender, Recipients, Subject, and Body).");
+        toast.error("Please fill in all the fields (Sender, Recipients, Subject, and Body).");
         return; 
       }
       setLoadingDraft(true); 
@@ -91,18 +91,18 @@ const CustomEmail = () => {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/email/save-draft`, emailData);
   
       if (response.status === 200) {
-        alert('Email saved to draft successfully!');
+        toast.success('Email saved to draft successfully!');
         setSender(currentUser.email);
         setRecipients([]);
         setAttachment(null);
         setBody("");
         setSubject("")
       } else {
-        alert('Failed to save email to draft.');
+        toast.error('Failed to save email to draft.');
       }
     } catch (error) {
       console.error('Error uploading file or sending email:', error);
-      alert('Error occurred while sending email.');
+      toast.error('Error occurred while sending email.');
     }
     finally {
       setLoadingDraft(false);  
@@ -144,6 +144,7 @@ const CustomEmail = () => {
 
   return (
     <div className="w-[80%] mx-auto p-6 mt-24 mb-12 bg-white rounded-lg shadow-lg">
+      <ToastContainer/>
       <h1 className="text-4xl font-bold bg-gradient-to-bl from-pink-400 via-orange-400 to-pink-600 bg-clip-text text-transparent mb-6 text-center">Custom Email Template</h1>
       
       <div className="mb-4">
