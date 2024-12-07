@@ -157,6 +157,10 @@ const PersonalEmail = () => {
 
   const handleSendEmail = async () => {
     try {
+      if (!sender || !recipients.length || !subject || !body) {
+        alert("Please fill in all the fields (Sender, Recipients, Subject, and Body).");
+        return; 
+      }
       let attachmentURL = null;
       if (recordedVideoFile) {
         attachmentURL = await upload(recordedVideoFile, sender);
@@ -205,12 +209,66 @@ const PersonalEmail = () => {
     }
   };
 
+  const handleSaveDraft= async () => {
+    try {
+      if (!sender || !recipients.length || !subject || !body) {
+        alert("Please fill in all the fields (Sender, Recipients, Subject, and Body).");
+        return; 
+      }
+      let attachmentURL = null;
+      if (recordedVideoFile) {
+        attachmentURL = await upload(recordedVideoFile, sender);
+      }
+
+      const formattedBody = `
+      ${salutation ? salutation + ', ' : ''}${recieverName ? recieverName: ''}
+
+      <br><br>${body.replace(/\n/g, '<br>')}<br><br>
+
+      ${closing ? closing + '<br><br>' : ''}
+      ${signature ? signature + '<br>' : ''}
+      ${recieverName ? recieverName + '<br>' : ''}
+      `;
+
+      const emailData = {
+        sender,
+        recipients,
+        subject,
+        body: formattedBody,
+        attachments: attachmentURL ? [attachmentURL] : [], 
+        accessToken: localStorage.getItem("gmailAccessToken")
+      };
+  
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/email/save-draft`, emailData);
+  
+      if (response.status === 200) {
+        alert('Email sent successfully!');
+        setSender(currentUser.email);
+        setRecipients([]);
+        setRecordedVideo(null);
+        setBody("");
+        setSubject("")
+        setSalutation("Hi")
+        setClosing('Warm regards');
+        setQuestion("")
+        setGeneratedContent("")
+        setRecieverName("")
+        setSignature("")
+      } else {
+        alert('Failed to send email.');
+      }
+    } catch (error) {
+      console.error('Error uploading file or sending email:', error);
+      alert('Error occurred while sending email.');
+    }
+  };
+
+
   return (
     <div className="w-[80%] mx-auto p-6 mt-[120px] mb-12 rounded-lg">
-      <h2 className="text-4xl font-bold mb-12 text-center">Personal Email</h2>
+      <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-bl from-pink-400 via-orange-400 to-pink-600 bg-clip-text text-transparent">Personal Email</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-        {/* Sender Email */}
         <div>
           <label className="block text-hoverButtonColor font-semibold mb-2">Your Email</label>
           <input
@@ -218,12 +276,11 @@ const PersonalEmail = () => {
             placeholder="Sender's Email"
             value={sender}
             onChange={(e) => setSender(e.target.value)}
-            // disabled
+            disabled
             className="w-full px-3 py-2 border border-primary rounded-md focus:outline-none focus:border-2 focus:border-primary"
           />
         </div>
 
-        {/* Salutation */}
         <div>
           <label className="block text-hoverButtonColor font-semibold mb-2">Greeting</label>
           <input
@@ -235,7 +292,6 @@ const PersonalEmail = () => {
           />
         </div>
 
-        {/* Subject */}
         <div>
           <label className="block text-hoverButtonColor font-semibold mb-2">Subject</label>
           <input
@@ -250,7 +306,6 @@ const PersonalEmail = () => {
 
       <div className="mb-4">
 
-        {/* Input field for question */}
         <div className="mb-4">
           <label className="block text-hoverButtonColor font-semibold mb-2">Question/Prompt</label>
           <input
@@ -262,7 +317,6 @@ const PersonalEmail = () => {
           />
         </div>
 
-        {/* Button to generate body content with AI */}
         <div className="mt-4 flex justify-end">
           <button
             className="px-6 py-2 bg-primary text-white font-semibold rounded-md shadow hover:bg-hoverButtonColor transition duration-300 ease-in-out focus:outline-none focus:ring focus:ring-primary"
@@ -272,7 +326,6 @@ const PersonalEmail = () => {
           </button>
         </div>
 
-        {/* Loading state */}
         <div className={loading ? "mt-4" : "hidden"}>
           <p className="text-gray-500">Generating content...</p>
         </div>
@@ -294,7 +347,6 @@ const PersonalEmail = () => {
       </div>
 
       <div className="mb-4 flex space-x-4">
-        {/* Closing Field */}
         <div className="flex-1">
           <label className="block text-hoverButtonColor font-semibold mb-2">Closing</label>
           <input
@@ -306,7 +358,6 @@ const PersonalEmail = () => {
           />
         </div>
 
-        {/* Signature Field */}
         <div className="flex-1">
           <label className="block text-hoverButtonColor font-semibold mb-2">Signature</label>
           <input
@@ -318,7 +369,6 @@ const PersonalEmail = () => {
           />
         </div>
 
-        {/* recieverName Field */}
         <div className="flex-1">
         <label className="block text-hoverButtonColor font-semibold mb-2">
           Reciever Relation <span className="text-gray-400">(optional)</span>
@@ -418,12 +468,27 @@ const PersonalEmail = () => {
         </div>
       </div>
 
+      <div className="flex gap-2">
       <button
-      onClick={handleSendEmail}
-        className="w-full py-2 mt-2 bg-primary text-white font-semibold rounded-md shadow hover:bg-hoverButtonColor focus:outline-none"
+        onClick={handleSendEmail}
+        className="w-full py-2 mt-4 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700 focus:outline-none"
       >
         Send Email
       </button>
+      <button
+        onClick={handleSaveDraft}
+        className="w-full py-2 mt-4 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700 focus:outline-none"
+      >
+        Save as Draft
+      </button>
+      {/* <button
+        
+        className="w-full py-2 mt-4 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700 focus:outline-none"
+      >
+        Schedule Email
+      </button> */}
+      </div>
+
     </div>
   );
 };

@@ -62,12 +62,12 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
             <FaClipboardList className="text-xl" /> 
             <span>Change Log</span> 
           </Link>
-          <Link
-            to="/dashboard"
+          {/* <Link
+            to="/dashboard/documentation"
             className="p-4  rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">
             <FaBook className="text-xl" /> 
             <span>Documentation</span> 
-          </Link>
+          </Link> */}
           <Link
             to="/dashboard/help"
             className="p-4  rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">

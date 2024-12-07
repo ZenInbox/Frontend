@@ -14,6 +14,8 @@ const CustomEmail = () => {
   const [recipients, setRecipients] = useState([]);
   const [newRecipient, setNewRecipient] = useState('');
   const [attachment, setAttachment] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [loadingDraft, setLoadingDraft] = useState(false);
 
   useEffect(() => {
     console.log('Current User:', currentUser);
@@ -27,6 +29,11 @@ const CustomEmail = () => {
 
   const handleSendEmail = async () => {
     try {
+      if (!sender || !recipients.length || !subject || !body) {
+        alert("Please fill in all the fields (Sender, Recipients, Subject, and Body).");
+        return; 
+      }
+      setLoading(true);
       let attachmentURL = null;
       if (attachment) {
         attachmentURL = await upload(attachment, sender);
@@ -56,10 +63,18 @@ const CustomEmail = () => {
       console.error('Error uploading file or sending email:', error);
       alert('Error occurred while sending email.');
     }
+    finally {
+      setLoading(false);  
+    }
   };
 
   const handleSaveDraft = async () => {
     try {
+      if (!sender || !recipients.length || !subject || !body) {
+        alert("Please fill in all the fields (Sender, Recipients, Subject, and Body).");
+        return; 
+      }
+      setLoadingDraft(true); 
       let attachmentURL = null;
       if (attachment) {
         attachmentURL = await upload(attachment, sender);
@@ -88,6 +103,9 @@ const CustomEmail = () => {
     } catch (error) {
       console.error('Error uploading file or sending email:', error);
       alert('Error occurred while sending email.');
+    }
+    finally {
+      setLoadingDraft(false);  
     }
   };
 
@@ -126,7 +144,7 @@ const CustomEmail = () => {
 
   return (
     <div className="w-[80%] mx-auto p-6 mt-24 mb-12 bg-white rounded-lg shadow-lg">
-      <h1 className="text-4xl font-bold text-black mb-6 text-center">Custom Email Template</h1>
+      <h1 className="text-4xl font-bold bg-gradient-to-bl from-pink-400 via-orange-400 to-pink-600 bg-clip-text text-transparent mb-6 text-center">Custom Email Template</h1>
       
       <div className="mb-4">
         <label className="block text-orange-700 font-semibold mb-2">Sender's Email</label>
@@ -135,7 +153,7 @@ const CustomEmail = () => {
           placeholder="Sender's Email"
           value={sender}
           onChange={(e) => setSender(e.target.value)}
-          // disabled
+          disabled
           className="w-full px-3 py-2 border border-orange-300 rounded-md focus:outline-none focus:ring focus:ring-orange-200"
         />
       </div>
@@ -190,7 +208,6 @@ const CustomEmail = () => {
         </button>
       </div>
 
-      {/* Attach File Section */}
       <div className="mb-4 mt-6">
         <label className="block text-orange-700 font-semibold mb-2">Attach File</label>
         <div
@@ -224,22 +241,24 @@ const CustomEmail = () => {
       <div className="flex gap-2">
       <button
         onClick={handleSendEmail}
+        disabled={loading}
         className="w-full py-2 mt-4 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700 focus:outline-none"
       >
-        Send Email
+         {loading ? 'Sending...' : 'Send Email'}
       </button>
       <button
+        disabled={loadingDraft}
         onClick={handleSaveDraft}
         className="w-full py-2 mt-4 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700 focus:outline-none"
       >
-        Save as Draft
+         {loadingDraft ? 'Saving...' : 'Save as Draft'}
       </button>
-      <button
+      {/* <button
         
         className="w-full py-2 mt-4 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700 focus:outline-none"
       >
         Schedule Email
-      </button>
+      </button> */}
       </div>
 
     </div>
