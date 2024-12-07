@@ -57,7 +57,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
 
           <hr className="border-t border-primary my-8 mx-4" />
           <Link
-            to="/dashboard"
+            to="/dashboard/changelog"
             className="p-4  rounded font-semibold flex items-center gap-3 transition hover:bg-hoverColor focus:bg-hoverColor text-hoverButtonColor">
             <FaClipboardList className="text-xl" /> 
             <span>Change Log</span> 
