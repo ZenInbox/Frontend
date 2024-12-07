@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import { FaQuestionCircle, FaChevronDown, FaChevronUp } from "react-icons/fa"; // Import React Icons
+import { FaQuestionCircle, FaChevronDown, FaChevronUp } from "react-icons/fa"; 
 
 const Help = () => {
-  const [openSection, setOpenSection] = useState(null); // Track the open section
+  const [openSection, setOpenSection] = useState(null); 
 
   const toggleSection = (index) => {
     if (openSection === index) {
-      setOpenSection(null); // Close if the same section is clicked
+      setOpenSection(null); 
     } else {
-      setOpenSection(index); // Open the clicked section
+      setOpenSection(index); 
     }
   };
 
   return (
-    <div className="px-4 pt-10 pb-16 sm:px-6 md:px-8 bg-gradient-to-r from-orange-100 via-yellow-100 to-orange-200 h-screen">
+    <div className="px-4 pt-10 pb-16 sm:px-6 md:px-8 bg-gradient-to-r from-orange-100 via-yellow-100 to-orange-200 h-screen ">
       <h1 className="text-3xl mb-1 text-left font-bold leading-none md:text-4xl lg:text-5xl pb-2 bg-gradient-to-bl from-pink-300 via-orange-300 to-orange-500 bg-clip-text text-transparent">
         {" "}
         Help & FAQs{" "}
@@ -101,8 +101,7 @@ const Help = () => {
             <div className="p-4 mt-3 bg-white rounded-b-xl">
               <p className="text-gray-600">
                 Yes! You can track the status of your emails in real-time, such as whether the email has been
-                opened by the recipient. Simply use our tracking feature by adding the tracking pixel when sending
-                the email.
+                opened by the recipient. Simply use our tracking feature in ZenInbox.
               </p>
             </div>
           )}

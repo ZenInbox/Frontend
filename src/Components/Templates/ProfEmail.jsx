@@ -109,6 +109,10 @@ const ProfEmail = () => {
 
   const handleSendEmail = async () => {
     try {
+      if (!sender || !recipients.length || !subject || !body) {
+        alert("Please fill in all the fields (Sender, Recipients, Subject, and Body).");
+        return; 
+      }
       let attachmentURL = null;
       if (attachment) {
         attachmentURL = await upload(attachment, sender);
@@ -159,6 +163,10 @@ const ProfEmail = () => {
 
   const handleSaveDraft = async () => {
     try {
+      if (!sender || !recipients.length || !subject || !body) {
+        alert("Please fill in all the fields (Sender, Recipients, Subject, and Body).");
+        return; 
+      }
       let attachmentURL = null;
       if (attachment) {
         attachmentURL = await upload(attachment, sender);
@@ -209,10 +217,9 @@ const ProfEmail = () => {
 
   return (
     <div className="w-[80%] mx-auto p-6 mt-[120px] mb-12 rounded-lg">
-      <h2 className="text-4xl font-bold mb-12 text-center">Professional Email</h2>
+      <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-bl from-pink-400 via-orange-400 to-pink-600 bg-clip-text text-transparent">Professional Email</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-        {/* Sender Email */}
         <div>
           <label className="block text-hoverButtonColor font-semibold mb-2">Sender's Email</label>
           <input
@@ -220,12 +227,11 @@ const ProfEmail = () => {
             placeholder="Sender's Email"
             value={sender}
             onChange={(e) => setSender(e.target.value)}
-            // disabled
+            disabled
             className="w-full px-3 py-2 border border-primary rounded-md focus:outline-none focus:border-2 focus:border-primary"
           />
         </div>
 
-        {/* Salutation */}
         <div>
           <label className="block text-hoverButtonColor font-semibold mb-2">Salutation</label>
           <input
@@ -237,7 +243,6 @@ const ProfEmail = () => {
           />
         </div>
 
-        {/* Subject */}
         <div>
           <label className="block text-hoverButtonColor font-semibold mb-2">Subject</label>
           <input
@@ -260,7 +265,6 @@ const ProfEmail = () => {
         className="w-full px-3 py-2 border border-primary rounded-md focus:outline-none focus:border-2 focus:border-primary"
       />
           
-        {/* Button to generate body content with AI */}
         <div className="mt-4 flex justify-end">
           <button
             onClick={generate}
@@ -271,7 +275,6 @@ const ProfEmail = () => {
         </div>
       </div>
 
-       {/* Loading state */}
       <div className={loading ? "mt-4" : "hidden"}>
         <p className="text-gray-500">Generating content...</p>
       </div>
@@ -292,7 +295,6 @@ const ProfEmail = () => {
       </div>
 
       <div className="mb-4 flex space-x-4">
-        {/* Closing Field */}
         <div className="flex-1">
           <label className="block text-hoverButtonColor font-semibold mb-2">Closing</label>
           <input
@@ -304,7 +306,6 @@ const ProfEmail = () => {
           />
         </div>
 
-        {/* Signature Field */}
         <div className="flex-1">
           <label className="block text-hoverButtonColor font-semibold mb-2">Signature</label>
           <input
@@ -316,7 +317,6 @@ const ProfEmail = () => {
           />
         </div>
 
-        {/* Designation Field */}
         <div className="flex-1">
         <label className="block text-hoverButtonColor font-semibold mb-2">
           Designation <span className="text-gray-400">(optional)</span>
@@ -360,7 +360,6 @@ const ProfEmail = () => {
         />
         <button
           onClick={() => {
-            // Regex to check valid email format
             const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (emailRegex.test(newRecipient)) {
               handleAddRecipient();
@@ -374,7 +373,6 @@ const ProfEmail = () => {
         </button>
       </div>
 
-      {/* Attach File Section */}
       <div className="mb-4 mt-6">
         <label className="block text-hoverButtonColor font-semibold mb-2">Attach File</label>
         <div
@@ -418,12 +416,12 @@ const ProfEmail = () => {
       >
         Save as Draft
       </button>
-      <button
+      {/* <button
         
         className="w-full py-2 mt-4 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700 focus:outline-none"
       >
         Schedule Email
-      </button>
+      </button> */}
       </div>
 
     </div>

@@ -134,6 +134,10 @@ const FollowUpEmail = () => {
 
   const handleSendEmail = async () => {
     try {
+      if (!sender || !recipients.length || !subject || !body) {
+        alert("Please fill in all the fields (Sender, Recipients, Subject, and Body).");
+        return; 
+      }
       let attachmentURL = null;
       if (attachment) {
         attachmentURL = await upload(attachment, sender);
@@ -197,6 +201,10 @@ const FollowUpEmail = () => {
 
   const handleSaveDraft = async () => {
     try {
+      if (!sender || !recipients.length || !subject || !body) {
+        alert("Please fill in all the fields (Sender, Recipients, Subject, and Body).");
+        return; 
+      }
       let attachmentURL = null;
       if (attachment) {
         attachmentURL = await upload(attachment, sender);
@@ -260,11 +268,10 @@ const FollowUpEmail = () => {
 
 
   return (
-    <div className="w-[80%] mx-auto p-6 mt-[120px] mb-12 rounded-lg">
-      <h2 className="text-4xl font-bold mb-12 text-center">Follow-Up Email</h2>
+    <div className="w-[80%] mx-auto p-6 mt-[120px] mb-12 rounded-lg " >
+      <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-bl from-pink-400 via-orange-400 to-pink-600 bg-clip-text text-transparent">Follow-Up Email</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-        {/* Sender Email */}
         <div>
           <label className="block text-hoverButtonColor font-semibold mb-2">Sender's Email</label>
           <input
@@ -272,12 +279,11 @@ const FollowUpEmail = () => {
             placeholder="Sender's Email"
             value={sender}
             onChange={(e) => setSender(e.target.value)}
-            // disabled
+            disabled
             className="w-full px-3 py-2 border border-primary rounded-md focus:outline-none focus:border-2 focus:border-primary"
           />
         </div>
 
-        {/* Salutation */}
         <div>
           <label className="block text-hoverButtonColor font-semibold mb-2">Salutation</label>
           <input
@@ -289,7 +295,6 @@ const FollowUpEmail = () => {
           />
         </div>
 
-        {/* Subject */}
         <div>
           <label className="block text-hoverButtonColor font-semibold mb-2">Subject</label>
           <input
@@ -312,7 +317,6 @@ const FollowUpEmail = () => {
         className="w-full px-3 py-2 border border-primary rounded-md focus:outline-none focus:border-2 focus:border-primary"
       />
           
-        {/* Button to generate body content with AI */}
         <div className="mt-4 flex justify-end">
           <button
             onClick={generate}
@@ -323,7 +327,6 @@ const FollowUpEmail = () => {
         </div>
       </div>
 
-       {/* Loading state */}
       <div className={loading ? "mt-4" : "hidden"}>
         <p className="text-gray-500">Generating content...</p>
       </div>
@@ -344,7 +347,6 @@ const FollowUpEmail = () => {
       </div>
 
       <div className="mb-4 flex space-x-4">
-        {/* Closing Field */}
         <div className="flex-1">
           <label className="block text-hoverButtonColor font-semibold mb-2">Closing</label>
           <input
@@ -356,7 +358,6 @@ const FollowUpEmail = () => {
           />
         </div>
 
-        {/* Signature Field */}
         <div className="flex-1">
           <label className="block text-hoverButtonColor font-semibold mb-2">Signature</label>
           <input
@@ -368,7 +369,6 @@ const FollowUpEmail = () => {
           />
         </div>
 
-        {/* Designation Field */}
         <div className="flex-1">
           <label className="block text-hoverButtonColor font-semibold mb-2">
             Designation <span className="text-gray-400">(optional)</span>
@@ -436,7 +436,6 @@ const FollowUpEmail = () => {
         />
         <button
           onClick={() => {
-            // Regex to check valid email format
             const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (emailRegex.test(newRecipient)) {
               handleAddRecipient();
@@ -450,7 +449,6 @@ const FollowUpEmail = () => {
         </button>
       </div>
 
-      {/* Attach File Section */}
       <div className="mb-4 mt-6">
         <label className="block text-hoverButtonColor font-semibold mb-2">Attach File</label>
         <div
@@ -474,9 +472,6 @@ const FollowUpEmail = () => {
         </div>
       </div>
 
-     
-      
-
       <div className="mt-8">
         <h3 className="text-xl font-semibold text-hoverButtonColor">Email Preview:</h3>
         <div className="mt-4">
@@ -497,12 +492,12 @@ const FollowUpEmail = () => {
       >
         Save as Draft
       </button>
-      <button
+      {/* <button
         
         className="w-full py-2 mt-4 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700 focus:outline-none"
       >
         Schedule Email
-      </button>
+      </button> */}
       </div>
 
     </div>
