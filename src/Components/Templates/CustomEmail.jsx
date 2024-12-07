@@ -16,11 +16,16 @@ const CustomEmail = () => {
   const [attachment, setAttachment] = useState(null);
 
   useEffect(() => {
+<<<<<<< HEAD
     console.log('Current User:', currentUser);
+=======
+    console.log('Current User:', currentUser); // Debugging step
+>>>>>>> f256590e98b72fb70cf60b693c6f4d70259e070e
     if (currentUser?.email) {
       setSender(currentUser.email);
     }
   }, [currentUser]);
+  
 
 
   const handleSendEmail = async () => {
