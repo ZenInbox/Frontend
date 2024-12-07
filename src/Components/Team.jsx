@@ -27,7 +27,7 @@ export default function Team() {
     <div
       className="relative cursor-pointer group bg-cover bg-center rounded-lg shadow-lg p-0 transform transition-transform duration-300 ease-in-out hover:scale-105 shadow-lg hover:shadow-2xl"
       style={{
-        backgroundImage: "url('https://cdn.britannica.com/99/254199-050-98CF4E04/Robert-Downey-JR-UK-premier-Oppenheimer-movie-July-2023.jpg')",
+        backgroundImage: "url('src/assets/p.jpeg')",
         height: '300px',
         width: '300px', 
       }}
@@ -45,29 +45,30 @@ export default function Team() {
 
     {/* Team Member 2 */}
     <div
-      className="relative cursor-pointer group bg-cover bg-center rounded-lg shadow-lg p-0 transform transition-transform duration-300 ease-in-out hover:scale-105 shadow-lg hover:shadow-2xl"
-      style={{
-        backgroundImage: "url('https://cdn.britannica.com/99/254199-050-98CF4E04/Robert-Downey-JR-UK-premier-Oppenheimer-movie-July-2023.jpg')",
-        height: '300px',
-        width: '300px', 
-      }}
-      onClick={() => handleRedirect("/team-member/1")}
-    >
-    
-      {/* White rounded container for text at the bottom */}
-      <div className="absolute bg-opacity-50 bottom-0 left-0 w-full bg-white py-4 px-6 rounded-b-lg text-center">
-        <div>
-          <h3 className="text-xl font-semibold text-gray-800">Rishi Bhattasali</h3>
-          <p className="text-sm text-gray-600">ML Engineer</p>
-        </div>
-      </div>
+  className="relative cursor-pointer group bg-cover bg-center rounded-lg shadow-lg p-0 transform transition-transform duration-300 ease-in-out hover:scale-105 shadow-lg hover:shadow-2xl"
+  style={{
+    backgroundImage: "url('src/assets/FB_DP.jpg')",
+    height: '300px',
+    width: '300px',
+  }}
+>
+  {/* White rounded container for text at the bottom */}
+  <div className="absolute bg-opacity-50 bottom-0 left-0 w-full bg-white py-4 px-6 rounded-b-lg text-center">
+    <div>
+      <h3 className="text-xl font-semibold text-gray-800">Rishi Bhattasali</h3>
+      <p className="text-sm text-gray-600">AIML Engineer</p>
     </div>
+  </div>
+
+  {/* LinkedIn Button at the downside */}
+
+</div>
 
     {/* Team Member 3 */}
     <div
       className="relative cursor-pointer group bg-cover bg-center rounded-lg shadow-lg p-0 transform transition-transform duration-300 ease-in-out hover:scale-105 shadow-lg hover:shadow-2xl"
       style={{
-        backgroundImage: "url('https://cdn.britannica.com/99/254199-050-98CF4E04/Robert-Downey-JR-UK-premier-Oppenheimer-movie-July-2023.jpg')",
+        backgroundImage: "url('src/assets/prii.jpg')",
         height: '300px',
         width: '300px', 
       }}
@@ -79,6 +80,7 @@ export default function Team() {
         <div>
           <h3 className="text-xl font-semibold text-gray-800">Priyanshu Dutta</h3>
           <p className="text-sm text-gray-600">Frontend Developer</p>
+          <link rel="stylesheet" href="" />
         </div>
       </div>
     </div>
