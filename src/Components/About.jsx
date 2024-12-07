@@ -8,16 +8,16 @@ export default function About() {
       <div className="max-w-[1222px] mx-auto px-4 sm:px-8 xl:px-0">
         
         <div className="text-center">
-          <span className="hero-subtitle-gradient relative mb-4 font-medium text-sm inline-flex items-center gap-2 py-2 px-6 rounded-full border border-white">
-            <img src="/icon-title.svg" alt="icon" />
-            <span className="hero-subtitle-text">
+          <span className="hero-subtitle-gradient relative mb-4 font-medium text-sm inline-flex items-center gap-2 py-2 px-6 rounded-full border border-pink-500">
+          <img src="logos/icon-title.svg" alt="icon" class="w-4 h-4" />
+            <span className="hero-subtitle-text text-hoverButtonColor">
               Simplify your email campaigns
             </span>
           </span>
           <h2 className="bg-gradient-to-r from-primary via-primary to-hoverButtonColor bg-clip-text text-transparent mb-4.5 text-2xl font-bold tracking-wide sm:text-4xl xl:text-heading-2">
             About Us
           </h2>
-          <p className="max-w-[714px] mx-auto mb-5 font-medium text-gray-600/90 mt-5">
+          <p className="max-w-[714px] mx-auto mb-5 font-medium text-pink-600/90 mt-5">
             Effortlessly create, send, and track your emails with our AI-powered platform.
           </p>
         </div>
@@ -29,13 +29,11 @@ export default function About() {
               <h4 className="text-xl text-hoverButtonColor font-bold tracking-wide mb-4">
                 For Businesses
               </h4>
-              <ul className="font-medium text-gray-500/90 text-left list-disc">
-                <li className="pb-2">Create targeted email campaigns with ease.</li>
-                <li className="pb-2">Track engagement with real-time analytics.</li>
-              </ul>
-              <ul className="font-medium text-gray-500/90 text-left list-disc">
-                <li className="pb-2">Personalize your emails to suit every recipient.</li>
-                <li className="pb-2">Optimize results with AI-driven suggestions.</li>
+              <ul className="font-medium text-pink-500/60 text-left list-disc">
+                <li className="pb-2">Design tailored email campaigns to reach your target audience effectively.</li>
+                <li className="pb-2">Gain actionable insights with real-time engagement analytics.</li>
+                <li className="pb-2">Enhance your outreach with AI-driven recommendations.</li>
+                <li className="pb-2">Streamline your marketing workflow with powerful automation tools.</li>
               </ul>
             </div>
           </div>
@@ -45,13 +43,11 @@ export default function About() {
               <h4 className="text-xl text-hoverButtonColor font-bold tracking-wide mb-4 text-center">
                 For Individuals
               </h4>
-              <ul className="font-medium text-gray-500/90 text-left list-disc">
-                <li className="pb-2">Personalize your emails to suit every recipient.</li>
-                <li className="pb-2">Optimize results with AI-driven suggestions.</li>
-              </ul>
-              <ul className="font-medium text-gray-500/90 text-left list-disc">
-                <li className="pb-2">Personalize your emails to suit every recipient.</li>
-                <li className="pb-2">Optimize results with AI-driven suggestions.</li>
+              <ul className="font-medium text-pink-500/60 text-left list-disc">
+                  <li className="pb-2">Craft personalized emails that leave a lasting impression.</li>
+                  <li className="pb-2">Simplify your communication with user-friendly tools.</li>
+                  <li className="pb-2">Leverage AI suggestions to make your messages more impactful.</li>
+                  <li className="pb-2">Send snaps to add a personal touch and enhance engagement.</li>
               </ul>
             </div>
           </div>
