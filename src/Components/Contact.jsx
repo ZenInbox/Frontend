@@ -4,12 +4,12 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="overflow-hidden pt-18 md:pt-24 xl:pt-32 bg-gradient-to-b from-hoverColor to-hoverColor"
+      className="overflow-hidden pt-18 md:pt-24 xl:pt-32 bg-gradient-to-b from-hoverColor via-pnk-50 to-white"
       data-aos="fade-up"
       data-aos-duration="1500"
       data-aos-offset="2"
     >
-      <div className="max-w-[1222px] mx-auto px-4 sm:px-8 xl:px-0">
+      <div className="max-w-4xl mx-auto px-4 sm:px-8 xl:px-0">
         <div className="text-center">
           {/* <span className="hero-subtitle-gradient relative mb-4 font-medium text-sm inline-flex items-center gap-2 py-2 px-6 rounded-full">
             <img src="/icon-title.svg" alt="icon" />
@@ -26,7 +26,7 @@ export default function Contact() {
           <form
             action="https://getform.io/f/blllwjob"
             method="POST"
-            className="bg-gradient-to-b from-hoverColor to-hoverColor shadow-pink rounded-lg p-8 sm:p-12"
+            className="bg-gradient-to-b from-hoverColor via-white to-hoverColor shadow-pink rounded-xl border border-white p-8 sm:p-12"
           >
             <div className="mb-6">
               <label

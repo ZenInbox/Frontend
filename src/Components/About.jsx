@@ -7,10 +7,10 @@ export default function About() {
       
       <div className="max-w-[1222px] mx-auto px-4 sm:px-8 xl:px-0">
         
-        <div className="text-center">
+        <div className="text-center mb-12">
           <span className="hero-subtitle-gradient relative mb-4 font-medium text-sm inline-flex items-center gap-2 py-2 px-6 rounded-full border border-pink-500">
           <img src="logos/icon-title.svg" alt="icon" class="w-4 h-4" />
-            <span className="hero-subtitle-text text-hoverbuttonColor">
+            <span className="hero-subtitle-text text-hoverbuttonColor text-pink-600 ">
               Simplify your email campaigns
             </span>
           </span>
