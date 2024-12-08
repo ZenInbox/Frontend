@@ -19,6 +19,8 @@ import ChangelogPage from './Components/ChangelogPage';
 import Help from "./Components/Help"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PrivacyPolicy from './Components/Privacy';
+import Services from './Components/Services';
 
 function App() {
   
@@ -31,7 +33,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-
+          <Route path="/privacy" element={<PrivacyPolicy/>} />
+          <Route path="/terms&services" element={<Services/>} />
           <Route path="/team" element={<Team />} />
           <Route path="/dashboard" element={<Dashboard />} >
             <Route index element={<Template />} /> 
