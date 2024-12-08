@@ -1,5 +1,4 @@
 import React from 'react';
-import BackgroundDots from './Utils/BackgroundDots';
 
 export default function About() {
   return (

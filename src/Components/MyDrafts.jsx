@@ -3,8 +3,11 @@ import { useAuth } from "../Context/AuthContext";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { io } from "socket.io-client";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function MyDrafts() {
+  const [sendingDraftId, setSendingDraftId] = useState(null);
   const [drafts, setDrafts] = useState([]);
   const [selectedDraft, setSelectedDraft] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -39,7 +42,7 @@ export default function MyDrafts() {
 
   const handleSendDraft = async (draftId) => {
     try {
-      setLoading(true);
+      setSendingDraftId(draftId); 
       const draft = drafts.find((email) => email._id === draftId);
       const emailData = {
         sender: currentUser.email,
@@ -54,14 +57,15 @@ export default function MyDrafts() {
         `${import.meta.env.VITE_BACKEND_URL}/api/email/send-draft`,
         emailData
       );
-      alert(response.data.message);
+      toast.success('Email sent successfully!');
     } catch (error) {
       console.error("Error sending draft:", error);
-      alert("Error sending draft.");
+      toast.error('Error occurred while sending email.');
     } finally {
-      setLoading(false);
+      setSendingDraftId(null); 
     }
   };
+  
 
   useEffect(() => {
     if (currentUser?.email) {
@@ -78,6 +82,7 @@ export default function MyDrafts() {
 
   return (
     <div className="p-6 bg-hoverColor min-h-screen">
+      <ToastContainer/>
       <h1 className="text-3xl md:text-4xl font-bold mb-10 text-center text-primary">
         My Drafts
       </h1>
@@ -125,7 +130,7 @@ export default function MyDrafts() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full max-h-[70vh] overflow-y-auto relative">
             <button
-              className="absolute top-2 right-2 text-black p-2 rounded-[50%] bg-gray-500 hover:text-gray-800"
+               className="absolute top-2 right-2 text-white w-8 h-8 flex items-center justify-center rounded-full bg-orange-500 hover:bg-orange-700"
               onClick={() => setSelectedDraft(null)}
             >
               &times;
@@ -163,8 +168,9 @@ export default function MyDrafts() {
             <button
               className="w-full py-2 mt-4 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700 focus:outline-none"
               onClick={() => handleSendDraft(selectedDraft._id)}
+              disabled={sendingDraftId === selectedDraft._id} 
             >
-              {loading ? "Sending..." : "Send Draft"}
+              {sendingDraftId === selectedDraft._id ? "Sending..." : "Send Draft"}
             </button>
           </div>
         </div>

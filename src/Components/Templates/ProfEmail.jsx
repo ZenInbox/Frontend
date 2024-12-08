@@ -193,7 +193,7 @@ const ProfEmail = () => {
         accessToken: localStorage.getItem("gmailAccessToken")
       };
   
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/email/send-email`, emailData);
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/email/save-draft`, emailData);
   
       if (response.status === 200) {
         toast.success('Email saved to draft successfully!');
