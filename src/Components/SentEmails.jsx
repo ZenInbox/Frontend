@@ -88,8 +88,9 @@ export default function SentEmails() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full max-h-[70vh] overflow-y-auto relative">
             <button
-              className="absolute top-2 right-2 text-black p-2 rounded-[50%] bg-gray-500 hover:text-gray-800"
+              className="absolute top-2 right-2 text-white w-8 h-8 flex items-center justify-center rounded-full bg-orange-500 hover:bg-orange-700"
               onClick={() => setSelectedEmail(null)}
+              aria-label="Close email"
             >
               &times;
             </button>

@@ -27,7 +27,7 @@ export default function Team() {
     <div
       className="relative cursor-pointer group bg-cover bg-center rounded-lg shadow-lg p-0 transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-pink"
       style={{
-        backgroundImage: "url('src/assets/p.jpeg')",
+        backgroundImage: "url('/src/assets/p.jpeg')",
         height: '300px',
         width: '300px',
       }}
@@ -45,7 +45,7 @@ export default function Team() {
     <div
       className="relative cursor-pointer group bg-cover bg-center rounded-lg shadow-lg p-0 transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-pink"
       style={{
-        backgroundImage: "url('src/assets/FB_DP.jpg')",
+        backgroundImage: "url('/src/assets/FB_DP.jpg')",
         height: '300px',
         width: '300px',
       }}
@@ -63,7 +63,7 @@ export default function Team() {
     <div
       className="relative cursor-pointer group bg-cover bg-center rounded-lg shadow-lg p-0 transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-pink"
       style={{
-        backgroundImage: "url('src/assets/prii.jpg')",
+        backgroundImage: "url('/src/assets/prii.jpg')",
         height: '300px',
         width: '300px',
       }}

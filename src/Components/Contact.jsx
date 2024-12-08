@@ -39,7 +39,7 @@ export default function Contact() {
                 type="text"
                 id="name"
                 name="name"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 placeholder="Your Name"
                 required
               />
@@ -55,7 +55,7 @@ export default function Contact() {
                 type="email"
                 id="email"
                 name="email"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 placeholder="Your Email"
                 required
               />
@@ -71,7 +71,7 @@ export default function Contact() {
                 type="text"
                 id="subject"
                 name="subject"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 placeholder="Subject"
                 required
               />
@@ -87,7 +87,7 @@ export default function Contact() {
                 id="message"
                 name="message"
                 rows="5"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 placeholder="Your Message"
                 required
               ></textarea>
@@ -95,7 +95,7 @@ export default function Contact() {
             <div className="text-center">
               <button
                 type="submit"
-                className="text-center rounded-full p-2 m-1 text-white text-xs md:text-sm font-semibold transition bg-primary hover:bg-hoverButtonColor shadow-md hover:shadow-lg focus:outline-none focus:ring-offset-2 w-20 lg:w-28"
+                className="text-center rounded-full py-2 px-6 text-white text-xs md:text-sm font-semibold transition bg-primary hover:bg-hoverButtonColor shadow-md hover:shadow-lg focus:outline-none focus:ring-offset-2 "
               >
                 Send Message
               </button>
