@@ -2,9 +2,9 @@ import React from "react";
 
 export default function Team() {
 
-  const handleRedirect = (link) => {
-    window.location.href = link;
-  };
+  // const handleRedirect = (link) => {
+  //   window.location.href = link;
+  // };
   return (
 <section
   id="team"
@@ -14,7 +14,7 @@ export default function Team() {
   data-aos-offset="2"
 >
   <div className="text-center mb-12">
-    <h2 className="bg-gradient-to-bl from-pink-400 via-orange-400 to-pink-600 bg-clip-text text-transparent mb-4.5 text-2xl font-bold tracking-wide sm:text-4xl xl:text-heading-2">
+    <h2 className="bg-gradient-to-bl from-pink-400 via-orange-400 to-pink-600 bg-clip-text text-transparent mb-4.5 text-2xl font-bold tracking-wide sm:text-4xl xl:text-heading-2 pb-6">
       Meet Our Team
     </h2>
     <p className="max-w-[714px] mx-auto mb-5 font-medium text-pink-600/90 mt-5">

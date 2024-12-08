@@ -31,7 +31,7 @@ export default function Features() {
               <div className="relative rounded-lg lg:rounded-none group overflow-hidden text-center py-8 sm:py-10 xl:py-15 px-4 lg:px-8 xl:px-13">
                 <span className="group-hover:opacity-100 opacity-0 features-bg absolute w-full h-full left-0 top-0 -z-1"></span>
                 <span className="icon-border relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto">
-                  <img src="/icon-01.svg" alt="icon" />
+                  <img src="src/assets/k1.png" alt="icon" />
                 </span>
                 <h4 className="font-semibold text-lg text-hoverButtonColor mb-4">
                   AI Generated Mails
@@ -46,7 +46,7 @@ export default function Features() {
               <div className="group rounded-lg lg:rounded-none relative overflow-hidden text-center py-8 sm:py-10 xl:py-15 px-4 lg:px-8 xl:px-13">
                 <span className="group-hover:opacity-100 opacity-0 features-bg absolute w-full h-full left-0 top-0 -z-1"></span>
                 <span className="icon-border relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto">
-                  <img src="/icon-02.svg" alt="icon" />
+                  <img src="src/assets/k2.png" alt="icon" />
                 </span>
                 <h4 className="font-semibold text-lg text-hoverButtonColor mb-4">
                     Real-Time Email Tracking
@@ -61,7 +61,7 @@ export default function Features() {
               <div className="group rounded-lg lg:rounded-none relative overflow-hidden text-center py-8 sm:py-10 xl:py-15 px-4 lg:px-8 xl:px-13">
                 <span className="group-hover:opacity-100 opacity-0 features-bg absolute w-full h-full left-0 top-0 -z-1"></span>
                 <span className="icon-border relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto">
-                  <img src="/icon-03.svg" alt="icon" />
+                  <img src="src/assets/k3.png" alt="icon" />
                 </span>
                 <h4 className="font-semibold text-lg text-hoverButtonColor mb-4">
                     Streamline Email Creation
@@ -79,7 +79,7 @@ export default function Features() {
               <div className="group rounded-lg lg:rounded-none relative overflow-hidden text-center py-8 sm:py-10 xl:py-15 px-4 lg:px-8 xl:px-13">
                 <span className="group-hover:opacity-100 opacity-0 features-bg absolute w-full h-full left-0 top-0 -z-1 rotate-180"></span>
                 <span className="icon-border relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto">
-                  <img src="/icon-04.svg" alt="icon" />
+                  <img src="src/assets/k4.png" alt="icon" />
                 </span>
                 <h4 className="font-semibold text-lg text-hoverButtonColor mb-4">
                     Personalised Video Snaps
@@ -94,7 +94,7 @@ export default function Features() {
               <div className="group rounded-lg lg:rounded-none relative overflow-hidden text-center py-8 sm:py-10 xl:py-15 px-4 lg:px-8 xl:px-13">
                 <span className="group-hover:opacity-100 opacity-0 features-bg absolute w-full h-full left-0 top-0 -z-1 rotate-180"></span>
                 <span className="icon-border relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto">
-                  <img src="/icon-05.svg" alt="icon" />
+                  <img src="src/assets/k5.png" alt="icon" />
                 </span>
                 <h4 className="font-semibold text-lg text-hoverButtonColor mb-4">
                   End to End Encrypted
@@ -109,7 +109,7 @@ export default function Features() {
               <div className="group rounded-lg lg:rounded-none relative overflow-hidden text-center py-8 sm:py-10 xl:py-15 px-4 lg:px-8 xl:px-13">
                 <span className="group-hover:opacity-100 opacity-0 features-bg absolute w-full h-full left-0 top-0 -z-1 rotate-180"></span>
                 <span className="icon-border relative max-w-[80px] w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto">
-                  <img src="/icon-06.svg" alt="icon" />
+                  <img src="src/assets/k6.png" alt="icon" />
                 </span>
                 <h4 className="font-semibold text-lg text-hoverButtonColor mb-4">
                     Dynamic Content Suggestions
