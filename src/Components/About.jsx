@@ -15,7 +15,7 @@ export default function About() {
               Simplify your email campaigns
             </span>
           </span>
-          <h2 className="bg-gradient-to-r from-primary via-primary to-hoverButtonColor bg-clip-text text-transparent mb-4.5 text-2xl font-bold tracking-wide sm:text-4xl xl:text-heading-2">
+          <h2 className="bg-gradient-to-bl from-pink-400 via-orange-400 to-pink-600 bg-clip-text text-transparent mb-4.5 text-2xl font-bold tracking-wide sm:text-4xl xl:text-heading-2">
             About Us
           </h2>
           <p className="max-w-[714px] mx-auto mb-5 font-medium text-pink-600/90 mt-5">
@@ -30,7 +30,7 @@ export default function About() {
               <h4 className="text-xl text-hoverButtonColor font-bold tracking-wide mb-4">
                 For Businesses
               </h4>
-              <ul className="font-medium text-pink-500/60 text-left list-disc">
+              <ul className="font-medium text-pink-500/70 text-left list-disc">
                 <li className="pb-2">Design tailored email campaigns to reach your target audience effectively.</li>
                 <li className="pb-2">Gain actionable insights with real-time engagement analytics.</li>
                 <li className="pb-2">Enhance your outreach with AI-driven recommendations.</li>
@@ -44,7 +44,7 @@ export default function About() {
               <h4 className="text-xl text-hoverButtonColor font-bold tracking-wide mb-4 text-center">
                 For Individuals
               </h4>
-              <ul className="font-medium text-pink-500/60 text-left list-disc">
+              <ul className="font-medium text-pink-500/70 text-left list-disc">
                   <li className="pb-2">Craft personalized emails that leave a lasting impression.</li>
                   <li className="pb-2">Simplify your communication with user-friendly tools.</li>
                   <li className="pb-2">Leverage AI suggestions to make your messages more impactful.</li>

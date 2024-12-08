@@ -13,6 +13,9 @@ export default {
         hoverColor: '#fff2df', //light orange
         hoverButtonColor: '#bf360c' //deep prange
       },
+      boxShadow: {
+        pink: '0 10px 20px rgba(255, 105, 180, 0.5)', // Custom pink shadow
+      },
     },
   },
   plugins: [],
