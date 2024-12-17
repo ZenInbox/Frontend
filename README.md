@@ -5,7 +5,7 @@ Send custom emails with our AI-powered platform, offering real-time analytics an
 ## Installation
 
 ```bash
-git clone https://github.com/ZenInbox/Frontend
+git https://github.com/ZenInbox/Frontend.git
 ```
 
 ## start
