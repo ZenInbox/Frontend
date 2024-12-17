@@ -53,7 +53,7 @@ Receive intelligent content recommendations tailored to your audience, enhancing
 
 Check out the demo video below to see ZenInbox in action:
 
-[![ZenInbox Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+[![ZenInbox Demo](https://img.youtube.com/vi/DFNRrbsipwk/0.jpg)](https://www.youtube.com/watch?v=DFNRrbsipwk)
 
 
 ---
