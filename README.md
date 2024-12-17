@@ -53,9 +53,11 @@ Receive intelligent content recommendations tailored to your audience, enhancing
 
 Check out the demo video below to see ZenInbox in action:
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/DFNRrbsipwk" title="ZenInbox Demo" 
-frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
+
+
+
+https://github.com/user-attachments/assets/d0eac635-5a09-46da-859f-9b4cb612050e
+
 
 ---
 
