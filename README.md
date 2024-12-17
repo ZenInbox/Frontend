@@ -56,7 +56,11 @@ Check out the demo video below to see ZenInbox in action:
 
 
 
-https://github.com/user-attachments/assets/d0eac635-5a09-46da-859f-9b4cb612050e
+https://github.com/user-attachments/assets/7a920bb1-7066-49ad-ba08-919c1a7e3eb1
+
+
+
+
 
 
 ---
