@@ -49,7 +49,7 @@ export default function Team() {
         height: '300px',
         width: '300px',
       }}
-      onClick={() => window.open("https://www.linkedin.com/in/rishi-bhattasali-8ab905253/", "_blank")}
+      onClick={() => window.open("https://www.linkedin.com/in/rishi-bhattasali", "_blank")}
     >
       <div className="absolute bg-opacity-80 bottom-0 left-0 w-full bg-white py-4 px-6 rounded-b-lg text-center">
         <div>
